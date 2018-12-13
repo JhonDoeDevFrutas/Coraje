@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1096257800320",
+    "firebase_url": "https://gestionproyecto-2208b.firebaseio.com",
+    "project_id": "gestionproyecto-2208b",
+    "storage_bucket": "gestionproyecto-2208b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096257800320:android:673c31013866d7e4",
+        "android_client_info": {
+          "package_name": "standardsoft.com.coraje"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1096257800320-k8ekpvk65jck64h91h3vt83olfs0ip99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYBAz2no7oDjhFU9LkILWsgfcbzOSC6q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
