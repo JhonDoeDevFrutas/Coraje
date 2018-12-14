@@ -3,6 +3,8 @@ package standardsoft.com.coraje.data.model.data_access;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import standardsoft.com.coraje.data.preferences.FirebaseReferences;
+
 public class FirebaseRealtimeDatabaseAPI {
     private static final String PATH_PLANNING   = "planning";
     private static final String PATH_SUPPORT    = "support";
@@ -38,6 +40,10 @@ public class FirebaseRealtimeDatabaseAPI {
 
     public DatabaseReference getBugsReference(){
         return getBugsReference().child(PATH_BUGS);
+    }
+
+    public DatabaseReference getCustomersReference(){
+        return getCustomersReference().child(FirebaseReferences.CUSTOMER_REFERENCE);
     }
 
 }

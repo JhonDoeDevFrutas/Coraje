@@ -31,16 +31,12 @@ public class PlanningPresenterClass implements PlanningPresenter {
 
     @Override
     public void onResume() {
-        if (setProgress()){
-            mInteractor.onResume();
-        }
+        mInteractor.subscribeToCustomer();
     }
 
     @Override
     public void onPause() {
-        if (setProgress()){
-            mInteractor.onPause();
-        }
+        mInteractor.unsubscribeToCustomer();
     }
 
     @Override
@@ -69,13 +65,12 @@ public class PlanningPresenterClass implements PlanningPresenter {
             mView.hideProgress();
 
             switch (event.getTypeEvent()){
-                case PlanningEvent.SUCCESS_ADD:
-                    if (setProgress()){
+                case PlanningEvent.SUCCESS:
+                    mView.addCustomerData(event.getCustomers());
+                    break;
 
-                    }
                 case PlanningEvent.ERROR_SERVER:
                     mView.onShowError(event.getResMsg());
-                    break;
             }
         }
     }

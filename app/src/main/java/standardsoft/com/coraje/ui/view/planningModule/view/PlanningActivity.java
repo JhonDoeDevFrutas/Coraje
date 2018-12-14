@@ -31,6 +31,8 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView{
     EditText edtTask, edtDescription;
     Button btnSave;
 
+    ArrayList<Customer> mCustomersList;
+
     private PlanningPresenter mPresenter;
 
     @Override
@@ -40,11 +42,11 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Preparar elementos UI
-        prepararUI();
-
         mPresenter = new PlanningPresenterClass(this);
         mPresenter.onCreate();
+
+        // Preparar elementos UI
+        prepararUI();
     }
 
     private void prepararUI() {
@@ -52,6 +54,7 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView{
         modulesSpinner = (MaterialSpinner)findViewById(R.id.modules_spinner);
         prioritysSpinner = (MaterialSpinner)findViewById(R.id.prioritys_spinner);
 
+        List<String>customerList = getListCustomer();
         List<String>moduleList = new ArrayList<>();
         List<String>priorityList = new ArrayList<>();
 
@@ -89,6 +92,23 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView{
         });
     }
 
+    private List<String> getListCustomer() {
+        List<String> stringList = new ArrayList<>();
+        for (Customer customer : mCustomersList) {
+            stringList.add(customer.getName());
+        }
+
+        return stringList;
+    }
+
+    private void getListCustomers(List<Customer> customerList) {
+        mCustomersList = new ArrayList<>();
+
+        for (Customer customer : customerList) {
+            mCustomersList.add(customer);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -116,6 +136,11 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView{
     @Override
     public void hideProgress() {
 
+    }
+
+    @Override
+    public void addCustomerData(List<Customer> customersDatas) {
+        getListCustomers(customersDatas);
     }
 
     @Override

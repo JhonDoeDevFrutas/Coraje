@@ -19,4 +19,6 @@
 
     <string name="title_activity_planning">PlanningActivity</string>
     <string name="addPlanning_message_error">No se pudo guardar, intente más tarde.</string>
+    <string name="error_permission_denied">Lo siento, no tienes permiso para ver entidades</string>
+    <string name="error_server">Error en el servidor, Intente más tarde</string>
 </resources>
