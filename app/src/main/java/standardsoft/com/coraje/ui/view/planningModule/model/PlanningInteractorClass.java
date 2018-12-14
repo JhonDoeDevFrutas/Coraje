@@ -24,7 +24,7 @@ public class PlanningInteractorClass implements PlanningInteractor {
         mDatabase.subscribeToPlanning(new PlanningEventListener() {
             @Override
             public void onDataChange(List<Customer> customerList) {
-                post(customerList, PlanningEvent.SUCCESS_ADD);
+                post(customerList, PlanningEvent.SUCCESS);
 
             }
 
@@ -46,7 +46,7 @@ public class PlanningInteractorClass implements PlanningInteractor {
         mDatabase.addPlanning(planning, new BasicErrorEventCallback() {
             @Override
             public void onSuccess() {
-                post(PlanningEvent.SUCCESS_ADD);
+                post(PlanningEvent.SUCCESS);
             }
 
             @Override
