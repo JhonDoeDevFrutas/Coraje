@@ -10,7 +10,14 @@ public enum Priority {
     }
 
     public static Priority getPriority(String description){
-        return Priority.baja;
+        switch (description){
+            case "Media":
+                return media;
+            case "Alta":
+                return alta;
+            default:
+                return baja;
+        }
     }
 
     // Get && Set

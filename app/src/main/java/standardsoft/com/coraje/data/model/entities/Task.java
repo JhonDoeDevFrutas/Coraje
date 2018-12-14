@@ -6,7 +6,7 @@ public class Task { // Definicion de la clase padre
     private Developer assignee;//Responsable
     private Status status;     //Estado
     private Priority priority; //Prioridad
-    private short estimation;  //Tiempo estimado
+    private int estimation;  //Tiempo estimado
     private Customer customer; //Cliente
     private Module module;     //Modulo
     private String task;       //Tarea
@@ -15,7 +15,7 @@ public class Task { // Definicion de la clase padre
     public Task() {}
 
     // Constructor completo
-    public Task(String description, Developer assignee, Status status, Priority priority, short estimation, Customer customer, Module module, String task) {
+    public Task(String description, Developer assignee, Status status, Priority priority, int estimation, Customer customer, Module module, String task) {
         this.description = description;
         this.assignee = assignee;
         this.status = status;
@@ -69,11 +69,11 @@ public class Task { // Definicion de la clase padre
         this.priority = priority;
     }
 
-    public short getEstimation() {
+    public int getEstimation() {
         return estimation;
     }
 
-    public void setEstimation(short estimation) {
+    public void setEstimation(int estimation) {
         this.estimation = estimation;
     }
 

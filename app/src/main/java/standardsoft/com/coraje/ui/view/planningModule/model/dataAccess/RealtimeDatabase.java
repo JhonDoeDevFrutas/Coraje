@@ -38,8 +38,20 @@ public class RealtimeDatabase {
         mDatabaseAPI = FirebaseRealtimeDatabaseAPI.getInstance();
     }
 
-    public void addPlanning(Planning planning){
-        String id = planning.getId();
-        mDatabaseAPI.getPlanningReference().child(id).setValue(planning);
+    public void addPlanning(Planning planning, final BasicErrorEventCallback callback){
+        mDatabaseAPI.getPlanningReference().push().setValue(planning, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError == null){
+                    callback.onSuccess();
+                } else {
+                    switch (databaseError.getCode()){
+                        default:
+                            callback.onError(PlanningEvent.ERROR_SERVER, 0);
+                    }
+                }
+
+            }
+        });
     }
 }

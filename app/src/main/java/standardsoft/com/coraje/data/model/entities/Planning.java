@@ -4,12 +4,11 @@ package standardsoft.com.coraje.data.model.entities;
 //Junta de Planificación
 public class Planning extends Task{
     private String id;
-    private short percentage; // Porcenta de desarrollo
+    private int percentage; // Porcenta de desarrollo
 
-    public Planning(String description, Status status, Priority priority, Customer customer, Module module, String task, String id, short percentage) {
+    public Planning(String description, Status status, Priority priority, Customer customer, Module module, String task) {
         super(description, status, priority, customer, module, task);
-        this.id = id;
-        this.percentage = percentage;
+        this.percentage = 0;
     }
 
     // Get & Set
@@ -21,11 +20,11 @@ public class Planning extends Task{
         this.id = id;
     }
 
-    public short getPercentage() {
+    public int getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(short percentage) {
+    public void setPercentage(int percentage) {
         this.percentage = percentage;
     }
 }

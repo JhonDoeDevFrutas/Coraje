@@ -11,6 +11,28 @@ public enum Module {
     }
 
     public static Module getModule(String description){
-        return Module.admision;
+        switch (description){
+            case "Historia Clinica":
+                return historia;
+            case "Admisiones":
+                return admision;
+            case "Agenda Medica":
+                return agenda;
+            case "Parametrización":
+                return parametrizacion;
+            case "Reportes":
+                return reporte;
+            default:
+                return app;
+        }
+    }
+
+    // Get & Set
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -71,7 +71,7 @@ public class PlanningPresenterClass implements PlanningPresenter {
             switch (event.getTypeEvent()){
                 case PlanningEvent.SUCCESS_ADD:
                     if (setProgress()){
-                        mView.openPlanningActivity();
+
                     }
                 case PlanningEvent.ERROR_SERVER:
                     mView.onShowError(event.getResMsg());
