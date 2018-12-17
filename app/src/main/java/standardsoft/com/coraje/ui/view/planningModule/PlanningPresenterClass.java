@@ -31,6 +31,7 @@ public class PlanningPresenterClass implements PlanningPresenter {
 
     @Override
     public void onResume() {
+        mInteractor.subscribeToProject();
         mInteractor.subscribeToCustomer();
     }
 
@@ -50,14 +51,6 @@ public class PlanningPresenterClass implements PlanningPresenter {
      mInteractor.addPlanning(planning);
    }
 
-    private boolean setProgress(){
-        if (mView != null){
-            mView.showProgress();
-            return true;
-        }
-        return false;
-    }
-
     @Subscribe
     @Override
     public void onEventListener(PlanningEvent event) {
@@ -65,8 +58,15 @@ public class PlanningPresenterClass implements PlanningPresenter {
             mView.hideProgress();
 
             switch (event.getTypeEvent()){
+                case PlanningEvent.RESULT_PROJECT:
+                    mView.resultProject(event.getProjects());
+                    break;
                 case PlanningEvent.SUCCESS:
-                    mView.addCustomerData(event.getCustomers());
+                    mView.resultCustomer(event.getCustomers());
+                    break;
+
+                case PlanningEvent.SUCCESS_ADD:
+                    mView.planningAdded();
                     break;
 
                 case PlanningEvent.ERROR_SERVER:

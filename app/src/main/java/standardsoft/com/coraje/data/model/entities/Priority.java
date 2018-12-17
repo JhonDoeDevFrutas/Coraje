@@ -1,7 +1,7 @@
 package standardsoft.com.coraje.data.model.entities;
 
 public enum Priority {
-    media("Media"), alta("Alta"), baja("baja");
+    media("MEDIA"), alta("ALTA"), baja("BAJA");
 
     private String description;
 
@@ -11,12 +11,14 @@ public enum Priority {
 
     public static Priority getPriority(String description){
         switch (description){
-            case "Media":
+            case "MEDIA":
                 return media;
-            case "Alta":
+            case "ALTA":
                 return alta;
-            default:
+            case "BAJA":
                 return baja;
+            default:
+                return null;
         }
     }
 

@@ -1,7 +1,7 @@
 package standardsoft.com.coraje.data.model.entities;
 
 public enum Status {
-    esperando("Esperando revisión"), proceso("En proceso"), listo("Listo");
+    esperando("ESPERANDO REVISION"), proceso("EN PROCESO"), listo("LISTO");
 
     private String description;
 
@@ -10,7 +10,17 @@ public enum Status {
     }
 
     public static Status getStatus(String description){
-        return Status.esperando;
+        switch (description){
+            case "ESPERANDO REVISION":
+                return esperando;
+            case "EN PROCESO":
+                return proceso;
+            case "LISTO":
+                return listo;
+            default:
+                return null;
+        }
+
     }
 
     // Get && Set

@@ -6,6 +6,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import standardsoft.com.coraje.data.preferences.FirebaseReferences;
 
 public class FirebaseRealtimeDatabaseAPI {
+    private static final String PATH_CUSTOMERS  = "customers";
+
     private static final String PATH_PLANNING   = "planning";
     private static final String PATH_SUPPORT    = "support";
     private static final String PATH_BUGS       = "bugs";
@@ -30,6 +32,14 @@ public class FirebaseRealtimeDatabaseAPI {
         return mReference;
     }
 
+    public DatabaseReference getCustomersReference(){
+        return getReference().child(PATH_CUSTOMERS);
+    }
+
+    public DatabaseReference getProjectsReference(){
+        return getReference().child(FirebaseReferences.PROJECT_REFERENCE);
+    }
+
     public DatabaseReference getPlanningReference(){
         return getReference().child(PATH_PLANNING);
     }
@@ -42,8 +52,5 @@ public class FirebaseRealtimeDatabaseAPI {
         return getBugsReference().child(PATH_BUGS);
     }
 
-    public DatabaseReference getCustomersReference(){
-        return getCustomersReference().child(FirebaseReferences.CUSTOMER_REFERENCE);
-    }
 
 }

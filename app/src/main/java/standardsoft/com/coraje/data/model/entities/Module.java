@@ -1,8 +1,8 @@
 package standardsoft.com.coraje.data.model.entities;
 
 public enum Module {
-    historia("Historia Clinica"), admision("Admisiones"), agenda("Agenda Medica"), reporte("Reportes"),
-    parametrizacion("Parametrización"), app("App Movil");
+    historia("HISTORIA CLINICA"), admision("ADMISIONES"), agenda("AGENDA MEDICA"), reporte("REPORTES"),
+    parametrizacion("PARAMETRIZACION"), app("APP MOVIL");
 
     private String description;
 
@@ -12,18 +12,20 @@ public enum Module {
 
     public static Module getModule(String description){
         switch (description){
-            case "Historia Clinica":
+            case "HISTORIA CLINICA":
                 return historia;
-            case "Admisiones":
+            case "ADMISIONES":
                 return admision;
-            case "Agenda Medica":
+            case "AGENDA MEDICA":
                 return agenda;
-            case "Parametrización":
+            case "PARAMETRIZACION":
                 return parametrizacion;
-            case "Reportes":
+            case "REPORTES":
                 return reporte;
-            default:
+            case "APP MOVIL":
                 return app;
+            default:
+                return null;
         }
     }
 

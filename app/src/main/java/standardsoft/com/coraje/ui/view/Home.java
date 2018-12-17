@@ -93,6 +93,8 @@ public class Home extends AppCompatActivity
             manager.beginTransaction().replace(R.id.content_frame, new DetailDeveloperFragment()).commit();
         } else if (id == R.id.nav_customer) {
             manager.beginTransaction().replace(R.id.content_frame, new DetailCustomerFragment()).commit();
+        }else if (id == R.id.nav_project) {
+            manager.beginTransaction().replace(R.id.content_frame, new DetailProjectsFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

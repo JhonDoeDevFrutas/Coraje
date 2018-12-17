@@ -4,13 +4,15 @@ import java.util.List;
 
 import standardsoft.com.coraje.data.model.entities.Customer;
 import standardsoft.com.coraje.data.model.entities.Planning;
+import standardsoft.com.coraje.data.model.entities.Project;
 
 public interface PlanningView {
     void showProgress();
     void hideProgress();
 
-    void addCustomerData(List<Customer> customersDatas);
-
+    void resultCustomer(List<Customer> customersDatas);
+    void resultProject(List<Project> projects);
     void planningAdded();
+
     void onShowError(int resMsg);
 }

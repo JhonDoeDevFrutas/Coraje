@@ -13,6 +13,7 @@ import standardsoft.com.coraje.common.BasicErrorEventCallback;
 import standardsoft.com.coraje.data.model.data_access.FirebaseRealtimeDatabaseAPI;
 import standardsoft.com.coraje.data.model.entities.Customer;
 import standardsoft.com.coraje.data.model.entities.Planning;
+import standardsoft.com.coraje.data.model.entities.Project;
 import standardsoft.com.coraje.ui.view.planningModule.events.PlanningEvent;
 
 /**
@@ -57,12 +58,37 @@ public class RealtimeDatabase {
                             callback.onError(PlanningEvent.ERROR_SERVER, 0);
                     }
                 }
+            }
+        });
+    }
+
+    public void subscribeToProject(final PlanningEventListener listener) {
+        mDatabaseAPI.getProjectsReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Project> projectsList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    projectsList.add(getProject(postSnapshot));
+                }
+
+                listener.onDataChangeProject(projectsList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                switch (databaseError.getCode()) {
+                    case DatabaseError.PERMISSION_DENIED:
+                        listener.onError(R.string.error_permission_denied);
+                        break;
+                    default:
+                        listener.onError(R.string.error_server);
+                }
 
             }
         });
     }
 
-    public void subscribeToPlanning(final PlanningEventListener listener) {
+    public void subscribeToCustomer(final PlanningEventListener listener) {
         mDatabaseAPI.getCustomersReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -88,16 +114,22 @@ public class RealtimeDatabase {
         });
     }
 
-    public void unsubscribeToPlanning(){
+    public void unsubscribeToCustomer(){
         if (mPlanningValueEventListener != null){
             mDatabaseAPI.getCustomersReference().removeEventListener(mPlanningValueEventListener);
         }
     }
 
-    private Customer getCustomer(DataSnapshot snapshot) {
-        Customer customer = snapshot.getValue(Customer.class);
+    private Customer getCustomer(DataSnapshot dataSnapshot) {
+        Customer customer = dataSnapshot.getValue(Customer.class);
 
         return customer;
+    }
+
+    private Project getProject(DataSnapshot dataSnapshot) {
+        Project project = dataSnapshot.getValue(Project.class);
+
+        return project;
     }
 
 }

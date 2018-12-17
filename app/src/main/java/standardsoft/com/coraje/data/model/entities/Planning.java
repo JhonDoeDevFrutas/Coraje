@@ -6,8 +6,9 @@ public class Planning extends Task{
     private String id;
     private int percentage; // Porcenta de desarrollo
 
-    public Planning(String description, Status status, Priority priority, Customer customer, Module module, String task) {
-        super(description, status, priority, customer, module, task);
+    public Planning(String description, Status status, Priority priority, Customer customer,
+                    Module module, String task, Project project) {
+        super(description, status, priority, customer, module, task, project);
         this.percentage = 0;
     }
 

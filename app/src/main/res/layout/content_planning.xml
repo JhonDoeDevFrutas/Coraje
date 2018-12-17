@@ -22,11 +22,25 @@
             android:paddingTop="16dp">
 
             <TextView
+                android:id="@+id/txt_project"
+                android:text="Proyecto:"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/projects_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_project"/>
+
+            <TextView
                 android:id="@+id/txt_customer"
                 android:text="Entidad:"
                 android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/projects_spinner"/>
 
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/customers_spinner"

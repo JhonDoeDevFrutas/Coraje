@@ -14,12 +14,17 @@
             android:title="Errores" />
         <item
             android:id="@+id/nav_planning"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Junta de Planificación" />
+            android:icon="@drawable/ic_today"
+            android:title="Planificación de Tareas" />
     </group>
 
     <item android:title="Configuración">
         <menu>
+            <item
+                android:id="@+id/nav_project"
+                android:icon="@drawable/ic_lightbulb"
+                android:title="Proyectos" />
+
             <item
                 android:id="@+id/nav_developer"
                 android:icon="@drawable/ic_face"
