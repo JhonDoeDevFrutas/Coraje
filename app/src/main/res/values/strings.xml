@@ -21,4 +21,8 @@
     <string name="addPlanning_message_error">No se pudo guardar, intente más tarde.</string>
     <string name="error_permission_denied">Lo siento, no tienes permiso para ver entidades</string>
     <string name="error_server">Error en el servidor, Intente más tarde</string>
+
+    <string name="error_network">Conexión de red no disponible</string>
+    <string name="common_validate_field_required">Este campo es requerido.</string>
+    <string name="title_activity_sub_planning">Sub Tareas</string>
 </resources>

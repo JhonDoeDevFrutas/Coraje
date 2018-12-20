@@ -3,7 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.PlanningFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_planning"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/item_planning"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_planning"

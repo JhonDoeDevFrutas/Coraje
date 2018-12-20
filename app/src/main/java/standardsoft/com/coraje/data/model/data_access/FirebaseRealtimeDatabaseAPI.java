@@ -39,9 +39,20 @@ public class FirebaseRealtimeDatabaseAPI {
     public DatabaseReference getProjectsReference(){
         return getReference().child(FirebaseReferences.PROJECT_REFERENCE);
     }
+    public DatabaseReference getDevelopersReference(){
+        return getReference().child(FirebaseReferences.DEVELOPER_REFERENCE);
+    }
 
     public DatabaseReference getPlanningReference(){
         return getReference().child(PATH_PLANNING);
+    }
+
+    public DatabaseReference getSubPlanningReference(){
+        return getReference().child(FirebaseReferences.SUBPLANNING_REFERENCE);
+    }
+
+    public DatabaseReference getSubPlanningReference(String uid){
+        return getReference().child(FirebaseReferences.SUBPLANNING_REFERENCE).child(uid);
     }
 
     public DatabaseReference getSupportReference(){

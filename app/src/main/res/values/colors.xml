@@ -8,4 +8,9 @@
     <color name="green">#00bfa5</color>
     <color name="pink">#fe104d</color>
 
+    <color name="colorRed">#b71c1c</color>
+    <color name="colorBlue">#1d8ddf</color>
+    <color name="colorGreen">#1b5e20</color>
+    <color name="colorBlack">#000000</color>
+
 </resources>

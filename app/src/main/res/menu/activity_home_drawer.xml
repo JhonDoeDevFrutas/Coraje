@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_planning"
             android:icon="@drawable/ic_today"
-            android:title="Planificación de Tareas" />
+            android:title="Planeación de Desarrollos" />
     </group>
 
     <item android:title="Configuración">

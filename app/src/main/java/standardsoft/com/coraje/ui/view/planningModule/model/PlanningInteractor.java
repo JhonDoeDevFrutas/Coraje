@@ -6,6 +6,11 @@ public interface PlanningInteractor {
 
     void subscribeToProject();
     void subscribeToCustomer();
+    void subscribeToDeveloper();
+    void unsubscribeToProject();
     void unsubscribeToCustomer();
+    void unsubscribeToDeveloper();
+
     void addPlanning(Planning planning);
+    void updatePlanning(Planning planning);
 }

@@ -1,14 +1,15 @@
 package standardsoft.com.coraje.data.model.entities;
 
-public class Developer extends User {
+public class SubPlanning extends Task{
+
     private String id;
 
-    public Developer() {
-    }
+    // Constructor vacio
+    public SubPlanning() {}
 
-    public Developer(String name, String movil, String id) {
-        super(name, movil);
-        this.id = id;
+    // Constructor completo
+    public SubPlanning(Developer assignee, String task) {
+        super(assignee, task);
     }
 
     // Get & Set
@@ -19,4 +20,5 @@ public class Developer extends User {
     public void setId(String id) {
         this.id = id;
     }
+
 }

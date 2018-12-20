@@ -1,5 +1,9 @@
 package standardsoft.com.coraje.ui.view.planningModule.model.dataAccess;
 
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,6 +16,7 @@ import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.common.BasicErrorEventCallback;
 import standardsoft.com.coraje.data.model.data_access.FirebaseRealtimeDatabaseAPI;
 import standardsoft.com.coraje.data.model.entities.Customer;
+import standardsoft.com.coraje.data.model.entities.Developer;
 import standardsoft.com.coraje.data.model.entities.Planning;
 import standardsoft.com.coraje.data.model.entities.Project;
 import standardsoft.com.coraje.ui.view.planningModule.events.PlanningEvent;
@@ -60,6 +65,22 @@ public class RealtimeDatabase {
                 }
             }
         });
+    }
+
+    public void  updatePlanning(Planning planning, final BasicErrorEventCallback callback){
+        mDatabaseAPI.getPlanningReference().child(planning.getId()).setValue(planning)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        callback.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onError(PlanningEvent.ERROR_SERVER, 0);
+                    }
+                });
     }
 
     public void subscribeToProject(final PlanningEventListener listener) {
@@ -114,9 +135,46 @@ public class RealtimeDatabase {
         });
     }
 
+    public void subscribeToDeveloper(final PlanningEventListener listener) {
+        mDatabaseAPI.getDevelopersReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Developer> developerList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    developerList.add(getDeveloper(postSnapshot));
+                }
+
+                listener.onDataDeveloper(developerList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                switch (databaseError.getCode()) {
+                    case DatabaseError.PERMISSION_DENIED:
+                        listener.onError(R.string.error_permission_denied);
+                        break;
+                    default:
+                        listener.onError(R.string.error_server);
+                }
+
+            }
+        });
+    }
+
+
     public void unsubscribeToCustomer(){
         if (mPlanningValueEventListener != null){
             mDatabaseAPI.getCustomersReference().removeEventListener(mPlanningValueEventListener);
+        }
+    }
+    public void unsubscribeToProject(){
+        if (mPlanningValueEventListener != null){
+            mDatabaseAPI.getProjectsReference().removeEventListener(mPlanningValueEventListener);
+        }
+    }
+    public void unsubscribeToDeveloper(){
+        if (mPlanningValueEventListener != null){
+            mDatabaseAPI.getDevelopersReference().removeEventListener(mPlanningValueEventListener);
         }
     }
 
@@ -124,6 +182,11 @@ public class RealtimeDatabase {
         Customer customer = dataSnapshot.getValue(Customer.class);
 
         return customer;
+    }
+    private Developer getDeveloper(DataSnapshot dataSnapshot) {
+        Developer developer = dataSnapshot.getValue(Developer.class);
+
+        return developer;
     }
 
     private Project getProject(DataSnapshot dataSnapshot) {

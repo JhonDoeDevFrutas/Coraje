@@ -36,6 +36,10 @@
         <activity
             android:name=".ui.view.planningModule.view.PlanningActivity"
             android:label="@string/title_activity_planning"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.view.detailSubPlanningModule.view.SubPlanningActivity"
+            android:label="@string/title_activity_sub_planning"
             android:theme="@style/AppTheme"></activity>
     </application>
 

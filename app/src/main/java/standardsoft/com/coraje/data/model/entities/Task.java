@@ -11,12 +11,15 @@ public class Task { // Definicion de la clase padre
     private Module module;      //Modulo
     private String task;        //Tarea
     private Project project;    //Proyecto
+    private long date;        //Fecha creacion
 
     // Constructor vacio
     public Task() {}
 
     // Constructor completo
-    public Task(String description, Developer assignee, Status status, Priority priority, int estimation, Customer customer, Module module, String task, Project project) {
+    public Task(String description, Developer assignee, Status status, Priority priority,
+                int estimation, Customer customer, Module module, String task, Project project,
+                long date) {
         this.description = description;
         this.assignee = assignee;
         this.status = status;
@@ -26,10 +29,18 @@ public class Task { // Definicion de la clase padre
         this.module = module;
         this.task = task;
         this.project = project;
+        this.date = date;
     }
 
-    // Constructor 6 argumentos
-    public Task(String description, Status status, Priority priority, Customer customer, Module module, String task, Project project) {
+    // Constructor 2 argumentos
+    public Task(Developer assignee, String task) {
+        this.assignee = assignee;
+        this.task = task;
+    }
+
+    // Constructor 8 argumentos
+    public Task(String description, Status status, Priority priority, Customer customer,
+                Module module, String task, Project project, Developer assignee, long date) {
         this.description = description;
         this.status = status;
         this.priority = priority;
@@ -37,6 +48,8 @@ public class Task { // Definicion de la clase padre
         this.module = module;
         this.task = task;
         this.project = project;
+        this.assignee = assignee;
+        this.date = date;
     }
 
     // Get & Set
@@ -110,5 +123,13 @@ public class Task { // Definicion de la clase padre
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 }
