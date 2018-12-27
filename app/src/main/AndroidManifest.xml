@@ -40,6 +40,14 @@
         <activity
             android:name=".ui.view.detailSubPlanningModule.view.SubPlanningActivity"
             android:label="@string/title_activity_sub_planning"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.view.taskModule.view.TaskActivity"
+            android:label="@string/title_activity_task"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.view.detailTaskModule.view.DetailTaskActivity"
+            android:label="@string/title_activity_detail_task"
             android:theme="@style/AppTheme"></activity>
     </application>
 

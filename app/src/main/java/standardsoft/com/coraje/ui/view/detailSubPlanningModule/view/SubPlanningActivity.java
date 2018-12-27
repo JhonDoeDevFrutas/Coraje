@@ -3,7 +3,6 @@ package standardsoft.com.coraje.ui.view.detailSubPlanningModule.view;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +35,7 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
     private RequestAdapter mAdapter;
 
     //a list to subPlanning all the section from firebase database
-    List<SubPlanning> subPlanningList;
+    List<SubPlanning> mSubPlanningList;
 
     private String mIdPlanning;
 
@@ -45,13 +44,14 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
     private SubPlanningPresenter mPresenter;
 
     String mDescriptionDeveloper;
+    Bundle args;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_planning);
 
-        Bundle args = new Bundle();
+        args = new Bundle();
         args = getIntent().getExtras();
         if (args != null){
             mIdPlanning = args.getString(Planning.ID);
@@ -149,18 +149,19 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
             @Override
             public void onClick(View v) {
                 if (CommonUtils.validatePlanning(getBaseContext(), edtTask)){
-                    SubPlanning subPlanning = new SubPlanning();
-                    subPlanning.setTask(edtTask.getText().toString());
-                    subPlanning.setAssignee(searchDeveloperByName(mDescriptionDeveloper));
-                    subPlanning.setStatus(Status.getStatus("ESPERANDO REVISION"));
+                    if (mIdPlanning != null){
+                        SubPlanning subPlanning = new SubPlanning();
+                        subPlanning.setTask(edtTask.getText().toString());
+                        subPlanning.setAssignee(searchDeveloperByName(mDescriptionDeveloper));
+                        subPlanning.setStatus(Status.getStatus("ESPERANDO REVISION"));
 
-                    Date date = new Date();
-                    long starDate = date.getTime();
-                    subPlanning.setDate(starDate);
+                        Date date = new Date();
+                        long starDate = date.getTime();
+                        subPlanning.setDate(starDate);
 
-                    mPresenter.addSubPlanning(mIdPlanning, subPlanning);
-                    dialog.dismiss();
-
+                        mPresenter.addSubPlanning(mIdPlanning, subPlanning);
+                        dialog.dismiss();
+                    }
                 }
             }
         });
@@ -220,6 +221,11 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
     }
 
     @Override
+    public void requestSubPlanning(List<SubPlanning> subPlanningsDatas) {
+        configAdapter(subPlanningsDatas);
+    }
+
+    @Override
     public void requestDeveloper(List<Developer> developersDatas) {
         mDevelopersList = new ArrayList<>();
 
@@ -228,10 +234,12 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
         }
     }
 
+/*
     @Override
     public void requestSubPlanning(List<SubPlanning> subPlanningsDatas) {
         configAdapter(subPlanningsDatas);
     }
+*/
 
     @Override
     public void addSubPlanning() {

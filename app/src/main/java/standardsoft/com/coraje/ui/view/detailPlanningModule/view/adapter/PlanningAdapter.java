@@ -1,4 +1,4 @@
-package standardsoft.com.coraje.ui.adapter;
+package standardsoft.com.coraje.ui.view.detailPlanningModule.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

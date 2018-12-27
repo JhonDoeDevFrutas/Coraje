@@ -1,5 +1,6 @@
 package standardsoft.com.coraje.ui.view.detailSubPlanningModule;
 
+import standardsoft.com.coraje.data.model.entities.Planning;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.events.SubPlanningEvent;
 

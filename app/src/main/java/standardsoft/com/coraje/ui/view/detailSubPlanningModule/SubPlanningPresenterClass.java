@@ -3,6 +3,7 @@ package standardsoft.com.coraje.ui.view.detailSubPlanningModule;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import standardsoft.com.coraje.data.model.entities.Planning;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.events.SubPlanningEvent;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.model.SubPlanningInteractor;

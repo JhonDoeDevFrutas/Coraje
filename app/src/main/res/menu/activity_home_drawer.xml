@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_activitys"
+            android:icon="@drawable/ic_access_alarm"
+            android:title="Actividades" />
+        <item
             android:id="@+id/nav_support"
             android:icon="@drawable/ic_perm_phone_msg"
             android:title="Soporte a Clientes" />

@@ -12,5 +12,7 @@
     <color name="colorBlue">#1d8ddf</color>
     <color name="colorGreen">#1b5e20</color>
     <color name="colorBlack">#000000</color>
+    <color name="color_transparent">#80000000</color>
+    <color name="colorWhite">#FFFFFF</color><!--50%-->
 
 </resources>

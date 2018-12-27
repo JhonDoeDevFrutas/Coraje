@@ -1,6 +1,8 @@
 package standardsoft.com.coraje.data.model.entities;
 
 
+import java.util.List;
+
 //Junta de Planificación
 public class Planning extends Task{
 
@@ -19,7 +21,8 @@ public class Planning extends Task{
     public static final String STATUS = "status";
 
     private String id;
-    private int percentage; // Porcenta de desarrollo
+    private int percentage;                 // Porcenta de desarrollo
+    private List<SubPlanning> subPlannings; //subtask
 
     public Planning() {}
 
@@ -47,4 +50,11 @@ public class Planning extends Task{
         this.percentage = percentage;
     }
 
+    public List<SubPlanning> getSubPlannings() {
+        return subPlannings;
+    }
+
+    public void setSubPlannings(List<SubPlanning> subPlannings) {
+        this.subPlannings = subPlannings;
+    }
 }

@@ -8,7 +8,6 @@ import standardsoft.com.coraje.data.preferences.FirebaseReferences;
 public class FirebaseRealtimeDatabaseAPI {
     private static final String PATH_CUSTOMERS  = "customers";
 
-    private static final String PATH_PLANNING   = "planning";
     private static final String PATH_SUPPORT    = "support";
     private static final String PATH_BUGS       = "bugs";
 
@@ -32,6 +31,10 @@ public class FirebaseRealtimeDatabaseAPI {
         return mReference;
     }
 
+    public DatabaseReference getRootReference(){
+        return mReference.getRoot();
+    }
+
     public DatabaseReference getCustomersReference(){
         return getReference().child(PATH_CUSTOMERS);
     }
@@ -44,7 +47,11 @@ public class FirebaseRealtimeDatabaseAPI {
     }
 
     public DatabaseReference getPlanningReference(){
-        return getReference().child(PATH_PLANNING);
+        return getReference().child(FirebaseReferences.PLANNING_REFERENCE);
+    }
+
+    public DatabaseReference getPlanningReference(String uid){
+        return getReference().child(FirebaseReferences.PLANNING_REFERENCE).child(uid);
     }
 
     public DatabaseReference getSubPlanningReference(){
@@ -53,6 +60,10 @@ public class FirebaseRealtimeDatabaseAPI {
 
     public DatabaseReference getSubPlanningReference(String uid){
         return getReference().child(FirebaseReferences.SUBPLANNING_REFERENCE).child(uid);
+    }
+
+    public DatabaseReference getNotesReference(String uid){
+        return getReference().child(FirebaseReferences.PATH_NOTES).child(uid);
     }
 
     public DatabaseReference getSupportReference(){

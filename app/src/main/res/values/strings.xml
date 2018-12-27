@@ -25,4 +25,8 @@
     <string name="error_network">Conexión de red no disponible</string>
     <string name="common_validate_field_required">Este campo es requerido.</string>
     <string name="title_activity_sub_planning">Sub Tareas</string>
+    <string name="title_activity_task">TaskActivity</string>
+    <string name="artist.hint.notes">Notas</string>
+    <string name="artist.hint.time">Tiempo</string>
+    <string name="title_activity_detail_task">DetailTaskActivity</string>
 </resources>

@@ -124,6 +124,11 @@ public class PlanningInteractorClass implements PlanningInteractor {
             public void onError(int typeEvent, int resMsg) {
                 post(typeEvent, resMsg);
             }
+
+            @Override
+            public void onError() {
+
+            }
         });
     }
 
@@ -138,6 +143,11 @@ public class PlanningInteractorClass implements PlanningInteractor {
             @Override
             public void onError(int typeEvent, int resMsg) {
                 post(typeEvent, resMsg);
+            }
+
+            @Override
+            public void onError() {
+
             }
         });
 

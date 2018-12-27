@@ -1,4 +1,4 @@
-package standardsoft.com.coraje.ui.view;
+package standardsoft.com.coraje.ui.view.detailPlanningModule.view;
 
 
 import android.content.Intent;
@@ -12,19 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.Planning;
-import standardsoft.com.coraje.data.preferences.FirebaseReferences;
-import standardsoft.com.coraje.ui.adapter.PlanningAdapter;
+import standardsoft.com.coraje.ui.view.detailPlanningModule.view.adapter.PlanningAdapter;
+import standardsoft.com.coraje.ui.view.detailPlanningModule.DetailPlanningPresenter;
+import standardsoft.com.coraje.ui.view.detailPlanningModule.DetailPlanningPresenterClass;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.view.SubPlanningActivity;
 import standardsoft.com.coraje.ui.view.planningModule.view.PlanningActivity;
 import standardsoft.com.coraje.utilies.Uweb;
@@ -32,7 +29,7 @@ import standardsoft.com.coraje.utilies.Uweb;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlanningFragment extends Fragment {
+public class PlanningFragment extends Fragment implements DetailPlanningView{
 
     // Referencias UI
     private View view;
@@ -44,17 +41,27 @@ public class PlanningFragment extends Fragment {
 
     DatabaseReference mDbReference;//our database reference object
 
+    private DetailPlanningPresenter mPresenter;
+
+    public PlanningFragment() {
+        // Required empty public constructor
+        mPresenter = new DetailPlanningPresenterClass(this);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_planning, container, false);
 
+/*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         // Firebase Init
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         //getting the reference of node
         mDbReference = database.getReference(FirebaseReferences.PLANNING_REFERENCE);
+*/
+        mPresenter.onCreate();
 
         // Checks if the device has any active internet connection.
         if (!Uweb.isNetworkConnected(getActivity())){
@@ -66,6 +73,7 @@ public class PlanningFragment extends Fragment {
 
         // Preparar elementos UI
         prepararUI();
+        configAdapter(new ArrayList<Planning>());
         prepararToolbar();
         prepararFab();
         return view;
@@ -76,10 +84,32 @@ public class PlanningFragment extends Fragment {
     }
 
     private void prepararUI() {
-        mReciclador = (RecyclerView)view.findViewById(R.id.recycler_planning);
         mAdapter    = new PlanningAdapter(getActivity(), new ArrayList<Planning>(0));
+        mReciclador = (RecyclerView)view.findViewById(R.id.recycler_planning);
+    }
+
+    private void configAdapter(List<Planning> planningList) {
+        mAdapter = new PlanningAdapter(getActivity(), planningList);
+        mAdapter.notifyDataSetChanged();
+
+        mAdapter.setOnItemClickListener(new PlanningAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Planning clickedPlanning) {
+                onPlanning(clickedPlanning, 0);
+            }
+        });
+        mAdapter.setOnItemLongClickListener(new PlanningAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(Planning longClickedPlanning) {
+                onPlanning(longClickedPlanning,1);
+                return false;
+            }
+        });
+
+        mReciclador.setAdapter(mAdapter);
 
     }
+
 
     private void onShowNetWorkError(String error) {
         Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
@@ -100,7 +130,7 @@ public class PlanningFragment extends Fragment {
         startActivity(intentPlanning);
     }
 
-    @Override
+/*    @Override
     public void onStart() {
         super.onStart();
         //attaching value event listener
@@ -118,19 +148,20 @@ public class PlanningFragment extends Fragment {
                     //adding planning to the list
                     planningList.add(planning);
                 }
+
                 //adapter
                 mAdapter = new PlanningAdapter(getActivity(), planningList);
                 mAdapter.notifyDataSetChanged();
                 mAdapter.setOnItemClickListener(new PlanningAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(Planning clickedPlanning) {
-                        onSubPlanning(clickedPlanning);/*send subPlanning*/
+                        onPlanning(clickedPlanning, 0);*//*send subPlanning*//*
                     }
                 });
                 mAdapter.setOnItemLongClickListener(new PlanningAdapter.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(Planning longClickedPlanning) {
-                        onPlanning(longClickedPlanning);/*alter planning*/
+                        onPlanning(longClickedPlanning,1);*//*alter planning*//*
                         return false;
                     }
                 });
@@ -142,18 +173,16 @@ public class PlanningFragment extends Fragment {
 
             }
         });
-    }
+    }*/
 
-    /*send subPlanning*/
-    private void onSubPlanning(Planning planning) {
-        Intent intentSubPlanning = new Intent(getActivity(), SubPlanningActivity.class);
-        intentSubPlanning.putExtra(Planning.ID, planning.getId());
-        startActivity(intentSubPlanning);
-    }
+    private void onPlanning(Planning planning, int typeSend){
+        Intent intentPlanning ;
+        if (typeSend == 0){
+            intentPlanning = new Intent(getActivity(), SubPlanningActivity.class);
+        }else {
+            intentPlanning = new Intent(getActivity(), PlanningActivity.class);
+        }
 
-    /*alter planning*/
-    private void onPlanning(Planning planning) {
-        Intent intentPlanning = new Intent(getActivity(), PlanningActivity.class);
         intentPlanning.putExtra(Planning.ID, planning.getId());
         intentPlanning.putExtra(Planning.DESCRIPTION, planning.getDescription());
         intentPlanning.putExtra(Planning.DATE, Long.toString(planning.getDate()));
@@ -167,6 +196,37 @@ public class PlanningFragment extends Fragment {
         intentPlanning.putExtra(Planning.ASSIGNEE, planning.getAssignee() != null ? planning.getAssignee().getName() : null);
         intentPlanning.putExtra(Planning.PROJECT, planning.getProject() != null ? planning.getProject().getDescription() : null);
         intentPlanning.putExtra(Planning.STATUS, planning.getStatus().getDescription());
+
+        if (typeSend == 0){
+            onSubPlanning(intentPlanning);
+        }else {
+            onPlanning(intentPlanning);
+        }
+    }
+
+    /*send subPlanning*/
+    private void onSubPlanning(Intent intentPlanning) {
         startActivity(intentPlanning);
+    }
+
+    /*alter planning*/
+    private void onPlanning(Intent intentPlanning) {
+        startActivity(intentPlanning);
+    }
+
+    @Override
+    public void addDatas(List<Planning> datas) {
+        configAdapter(datas);
+    }
+
+    @Override
+    public void showError(int resMsg) {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.onResume();
     }
 }

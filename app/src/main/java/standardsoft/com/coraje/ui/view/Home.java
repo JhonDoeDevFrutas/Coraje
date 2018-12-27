@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import standardsoft.com.coraje.R;
+import standardsoft.com.coraje.ui.view.detailActivityModule.view.ActivitysFragment;
+import standardsoft.com.coraje.ui.view.detailPlanningModule.view.PlanningFragment;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,8 +85,8 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager manager = getFragmentManager();
 
-        if (id == R.id.nav_support) {
-
+        if (id == R.id.nav_activitys) {
+            manager.beginTransaction().replace(R.id.content_frame, new ActivitysFragment()).commit();
         } else if (id == R.id.nav_bugs) {
 
         } else if (id == R.id.nav_planning) {

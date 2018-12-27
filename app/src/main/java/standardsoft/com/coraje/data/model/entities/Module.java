@@ -2,7 +2,8 @@ package standardsoft.com.coraje.data.model.entities;
 
 public enum Module {
     historia("HISTORIA CLINICA"), admision("ADMISIONES"), agenda("AGENDA MEDICA"), reporte("REPORTES"),
-    parametrizacion("PARAMETRIZACION"), app("APP MOVIL"), factura("FACTURACIÓN");
+    parametrizacion("PARAMETRIZACION"), app("APP MOVIL"), factura("FACTURACIÓN"),
+    laboratorio("LABORATORIO");
 
     private String description;
 
@@ -26,6 +27,8 @@ public enum Module {
                 return app;
             case "FACTURACIÓN":
                 return factura;
+            case "LABORATORIO":
+                return laboratorio;
             default:
                 return null;
         }

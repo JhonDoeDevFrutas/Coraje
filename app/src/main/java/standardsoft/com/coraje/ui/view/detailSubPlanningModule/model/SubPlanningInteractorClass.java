@@ -6,6 +6,7 @@ import java.util.List;
 
 import standardsoft.com.coraje.common.BasicErrorEventCallback;
 import standardsoft.com.coraje.data.model.entities.Developer;
+import standardsoft.com.coraje.data.model.entities.Planning;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.events.SubPlanningEvent;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.model.dataAcces.RealtimeDatabase;
@@ -70,6 +71,11 @@ public class SubPlanningInteractorClass implements SubPlanningInteractor {
             @Override
             public void onError(int typeEvent, int resMsg) {
                 post(SubPlanningEvent.ERROR_SERVER);
+            }
+
+            @Override
+            public void onError() {
+
             }
         });
     }
