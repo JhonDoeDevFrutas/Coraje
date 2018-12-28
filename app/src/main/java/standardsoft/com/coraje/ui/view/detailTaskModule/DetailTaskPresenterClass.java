@@ -24,8 +24,27 @@ public class DetailTaskPresenterClass implements DetailTaskPresenter {
     }
 
     @Override
+    public void onResume(String idSubPlanning) {
+        if (mView != null) {
+            mView.showProgress();
+            mInteractor.subscribeToRemarkList(idSubPlanning);
+        }
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        mView = null;
+    }
+
+    @Override
     public void addRemarkTask(String idSubPlanning, Remark remark) {
-        if (mView != null){
+        if (mView != null) {
             mView.showProgress();
 
             mInteractor.addRemarkTask(idSubPlanning, remark);
@@ -35,12 +54,16 @@ public class DetailTaskPresenterClass implements DetailTaskPresenter {
     @Subscribe
     @Override
     public void onEventListener(DetailTaskEvent event) {
-        if (mView != null){
+        if (mView != null) {
             mView.hideProgress();
 
-            switch (event.getTypeEvent()){
+            switch (event.getTypeEvent()) {
                 case DetailTaskEvent.REMARK_ADDED:
+                    mView.clearUIElements();
                     mView.addRemarkTask();
+                    break;
+                case DetailTaskEvent.RESULT_REMARK:
+                    mView.resultRemark(event.getRemarks());
                     break;
                 case DetailTaskEvent.ERROR_SERVER:
                     mView.onShowError(event.getTypeEvent());

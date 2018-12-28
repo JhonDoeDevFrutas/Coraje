@@ -6,7 +6,6 @@ import java.util.List;
 
 import standardsoft.com.coraje.common.BasicErrorEventCallback;
 import standardsoft.com.coraje.data.model.entities.Developer;
-import standardsoft.com.coraje.data.model.entities.Planning;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.events.SubPlanningEvent;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.model.dataAcces.RealtimeDatabase;

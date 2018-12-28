@@ -115,12 +115,12 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
 
     private void onTask(SubPlanning subPlanning, int typeSend){
         Intent intentTask = new Intent(getActivity(), TaskActivity.class);
-        Intent intentDetailTask = new Intent(getActivity(), DetailTaskActivity.class);
         startActivity(intentTask);
     }
 
     private void onDetailTask(SubPlanning subPlanning, int typeSend){
         Intent intentDetailTask = new Intent(getActivity(), DetailTaskActivity.class);
+        intentDetailTask.putExtra(SubPlanning.ID, subPlanning.getId());
         startActivity(intentDetailTask);
     }
 

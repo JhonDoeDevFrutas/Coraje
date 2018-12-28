@@ -29,4 +29,5 @@
     <string name="artist.hint.notes">Notas</string>
     <string name="artist.hint.time">Tiempo</string>
     <string name="title_activity_detail_task">DetailTaskActivity</string>
+    <string name="add_message_request">Solicitud enviada exitosamente</string>
 </resources>

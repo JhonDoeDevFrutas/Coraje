@@ -1,59 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.view.detailTaskModule.view.DetailTaskActivity"
-    tools:showIn="@layout/activity_detail_task"
-    app:layout_constraintBottom_toTopOf="@+id/contetNote">
+    tools:showIn="@layout/activity_detail_task">
 
-    <ImageButton
-        android:id="@+id/btn_send"
-        android:src="@drawable/ic_menu_send"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_remark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:clickable="true"
+        android:src="@drawable/ic_menu_send"
+        android:tint="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:fabSize="mini" />
 
-    <LinearLayout
-        android:id="@+id/contetNote"
-        android:layout_width="0dp"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        android:focusableInTouchMode="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_send"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_toLeftOf="@id/fab_remark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edt_note"
+        <EditText
+            android:id="@+id/edt_remark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="@dimen/edtNote_height"
-            android:inputType="textMultiLine"
-            android:layout_marginEnd="@dimen/common_padding_small"/>
+            android:hint="Comentario"/>
+    </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_horizontal_chat"
-        android:layout_marginEnd="@dimen/margin_horizontal_chat"
-        tools:listitem="@layout/item_note"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/contetNote"
-
-        >
-
-    </android.support.v7.widget.RecyclerView>
+    <ListView
+        android:id="@+id/list_of_remark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@id/fab_remark"
+        android:dividerHeight="16dp"
+        android:divider="@android:color/transparent"
+        android:layout_marginBottom="16dp"/>
 
 
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

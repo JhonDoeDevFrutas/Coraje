@@ -5,6 +5,10 @@ import standardsoft.com.coraje.ui.view.detailTaskModule.events.DetailTaskEvent;
 
 public interface DetailTaskPresenter {
     void onCreate();
+    void onResume(String idSubPlanning);
+    void onPause();
+    void onDestroy();
+
     void addRemarkTask(String idSubPlanning, Remark remark);
 
     void onEventListener(DetailTaskEvent event);

@@ -25,14 +25,12 @@ public class RealtimeDatabase {
                 List<SubPlanning> subPlannings = new ArrayList<>();
                 //iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
                     for (DataSnapshot snapshot : postSnapshot.getChildren()) {
                         // getting subplanning
                         SubPlanning subPlanning = snapshot.getValue(SubPlanning.class);
                         //adding subplanning to the list
-                        subPlannings.add(subPlanning);
+                        subPlannings.add(getSubPlanning(snapshot));
                     }
-
                 }
 
                 listener.onDataChange(subPlannings);
