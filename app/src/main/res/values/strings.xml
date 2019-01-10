@@ -27,7 +27,8 @@
     <string name="title_activity_sub_planning">Sub Tareas</string>
     <string name="title_activity_task">TaskActivity</string>
     <string name="artist.hint.notes">Notas</string>
-    <string name="artist.hint.time">Tiempo</string>
-    <string name="title_activity_detail_task">DetailTaskActivity</string>
+    <string name="artist.hint.time">Tiempo Estimado</string>
+    <string name="title_activity_detail_task">Observación</string>
     <string name="add_message_request">Solicitud enviada exitosamente</string>
+    <string name="title_update">Actualizar</string>
 </resources>

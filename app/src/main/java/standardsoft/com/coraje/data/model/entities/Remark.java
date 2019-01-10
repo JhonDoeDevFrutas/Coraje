@@ -1,6 +1,9 @@
 package standardsoft.com.coraje.data.model.entities;
 
 public class Remark {
+    public static final String DESCRIPTION = "description";
+    public static final String DATE = "date";
+
     private String id;
     private String description;
     private long date;        //Fecha creacion

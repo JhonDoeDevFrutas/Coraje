@@ -30,7 +30,8 @@
             android:id="@+id/edt_remark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Comentario"/>
+            android:hint="Comentario"
+            android:focusableInTouchMode="true"/>
     </android.support.design.widget.TextInputLayout>
 
     <ListView

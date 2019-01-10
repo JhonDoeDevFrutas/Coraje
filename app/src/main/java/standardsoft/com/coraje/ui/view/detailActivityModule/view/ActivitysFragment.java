@@ -115,17 +115,34 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
 
     private void onTask(SubPlanning subPlanning, int typeSend){
         Intent intentTask = new Intent(getActivity(), TaskActivity.class);
+        intentTask.putExtra(SubPlanning.ID, subPlanning.getId());
+        intentTask.putExtra(SubPlanning.ID_PLANNING, subPlanning.getIdPlanning());
+        intentTask.putExtra(SubPlanning.TASK, subPlanning.getTask());
+        intentTask.putExtra(SubPlanning.ASSIGNEE, subPlanning.getAssignee() != null ? subPlanning.getAssignee().getName() : null);
+        intentTask.putExtra(SubPlanning.ESTIMATION, subPlanning.getEstimation());
+        intentTask.putExtra(SubPlanning.STATUS, subPlanning.getStatus().getDescription());
+        intentTask.putExtra(SubPlanning.DATE, Long.toString(subPlanning.getDate()));
+        intentTask.putExtra(SubPlanning.DESCRIPTION, subPlanning.getDescription());
+
         startActivity(intentTask);
     }
 
     private void onDetailTask(SubPlanning subPlanning, int typeSend){
         Intent intentDetailTask = new Intent(getActivity(), DetailTaskActivity.class);
         intentDetailTask.putExtra(SubPlanning.ID, subPlanning.getId());
+        intentDetailTask.putExtra(SubPlanning.ID_PLANNING, subPlanning.getIdPlanning());
+        intentDetailTask.putExtra(SubPlanning.TASK, subPlanning.getTask());
+        intentDetailTask.putExtra(SubPlanning.ASSIGNEE, subPlanning.getAssignee() != null ? subPlanning.getAssignee().getName() : null);
+        intentDetailTask.putExtra(SubPlanning.ESTIMATION, subPlanning.getEstimation());
+        intentDetailTask.putExtra(SubPlanning.STATUS, subPlanning.getStatus().getDescription());
+        intentDetailTask.putExtra(SubPlanning.DATE, Long.toString(subPlanning.getDate()));
+        intentDetailTask.putExtra(SubPlanning.DESCRIPTION, subPlanning.getDescription());
         startActivity(intentDetailTask);
     }
 
     private void prepararToolbar() {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("ACTIVIDADES");           // Toolbar
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("ACTIVIDADES");// Toolbar
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("ActivitysFragment");
     }
 
     private void onShowNetWorkError(String error) {

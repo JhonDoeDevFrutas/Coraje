@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentTask"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.view.taskModule.view.TaskActivity">
@@ -36,6 +37,7 @@
 
     <include layout="@layout/content_task" />
 
+<!--
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_task"
         android:src="@drawable/ic_edit"
@@ -47,6 +49,7 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|right|end"
         app:useCompatPadding="true"/>
+-->
 
 
 </android.support.design.widget.CoordinatorLayout>

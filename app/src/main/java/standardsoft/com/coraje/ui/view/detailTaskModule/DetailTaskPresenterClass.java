@@ -43,11 +43,11 @@ public class DetailTaskPresenterClass implements DetailTaskPresenter {
     }
 
     @Override
-    public void addRemarkTask(String idSubPlanning, Remark remark) {
+    public void addRemarkTask(String idPlanning, String idSubPlanning, Remark remark) {
         if (mView != null) {
             mView.showProgress();
 
-            mInteractor.addRemarkTask(idSubPlanning, remark);
+            mInteractor.addRemarkTask(idPlanning, idSubPlanning, remark);
         }
     }
 

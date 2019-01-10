@@ -9,7 +9,7 @@ public interface DetailTaskPresenter {
     void onPause();
     void onDestroy();
 
-    void addRemarkTask(String idSubPlanning, Remark remark);
+    void addRemarkTask(String idPlanning, String idSubPlanning, Remark remark);
 
     void onEventListener(DetailTaskEvent event);
 }

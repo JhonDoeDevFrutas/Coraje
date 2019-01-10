@@ -47,7 +47,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         public TextView txtTask;
-        public TextView txt1,txt2;
+        public TextView txt1,txt2,txt3;
         public View priorityStatus;
 
         public ViewHolder(View itemView) {
@@ -57,6 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
             txtTask  = (TextView) itemView.findViewById(R.id.text_task);
             txt1  = (TextView) itemView.findViewById(R.id.text_1);
             txt2  = (TextView) itemView.findViewById(R.id.text_2);
+            txt3  = (TextView) itemView.findViewById(R.id.text_3);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -95,16 +96,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         String task     = subPlanning.getTask().trim();
         String status   = subPlanning.getStatus().getDescription();
         String developer = subPlanning.getAssignee().getName().toString().trim();
+        String time     = Integer.toString(subPlanning.getEstimation()) ;
         long date       = subPlanning.getDate();
 
         View priorityStatus = holder.priorityStatus;
 
         switch (status){
             case "ESPERANDO REVISION":
-                priorityStatus.setBackgroundResource(R.color.colorRed);
+                priorityStatus.setBackgroundResource(R.color.colorBlue);
                 break;
             case "EN PROCESO":
-                priorityStatus.setBackgroundResource(R.color.colorBlue);
+                priorityStatus.setBackgroundResource(R.color.colorOrange);
                 break;
             case "LISTO":
                 priorityStatus.setBackgroundResource(R.color.colorGreen);
@@ -114,6 +116,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         holder.txtTask.setText(task);
         holder.txt1.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT).format(date));
         holder.txt2.setText(developer);
+        holder.txt3.setText(time+" Hora(s)");
     }
 
     @Override

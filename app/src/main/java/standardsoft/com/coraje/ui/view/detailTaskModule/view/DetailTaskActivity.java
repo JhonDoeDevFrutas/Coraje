@@ -1,14 +1,17 @@
 package standardsoft.com.coraje.ui.view.detailTaskModule.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import standardsoft.com.coraje.data.model.entities.SubPlanning;
 import standardsoft.com.coraje.ui.view.detailTaskModule.DetailTaskPresenter;
 import standardsoft.com.coraje.ui.view.detailTaskModule.DetailTaskPresenterClass;
 import standardsoft.com.coraje.ui.view.detailTaskModule.view.adapter.RequestAdapter;
+import standardsoft.com.coraje.ui.view.taskModule.view.TaskActivity;
 import standardsoft.com.coraje.utilies.CommonUtils;
 
 public class DetailTaskActivity extends AppCompatActivity implements DetailTaskView{
@@ -31,18 +35,26 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
     private ListView listRemark;
 
     private String mIdSubPlanning;
+    private String mIdPlanning;
+    private String mTaskSubPlanning;
     private RequestAdapter mAdapter;
 
     private DetailTaskPresenter mPresenter;
+
+    Bundle args;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_task);
 
-        Bundle args = getIntent().getExtras();
+        args = new Bundle();
+        args = getIntent().getExtras();
+
         if (args != null){
+            mIdPlanning = args.getString(SubPlanning.ID_PLANNING);
             mIdSubPlanning = args.getString(SubPlanning.ID);
+            mTaskSubPlanning = args.getString(SubPlanning.TASK);
         }
 
         mPresenter = new DetailTaskPresenterClass(this);
@@ -75,6 +87,8 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
 
     private void configToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(mTaskSubPlanning);
+        toolbar.setSubtitle("DetailTaskActivity");
         setSupportActionBar(toolbar);
     }
 
@@ -91,7 +105,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
                     long starDate = date.getTime();
                     remark.setDate(starDate);
 
-                    mPresenter.addRemarkTask(mIdSubPlanning, remark);
+                    mPresenter.addRemarkTask(mIdPlanning,mIdSubPlanning, remark);
                 }
             }
         });
@@ -113,6 +127,33 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
     protected void onPause() {
         super.onPause();
         mPresenter.onPause();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (R.id.item_update == item.getItemId()){
+
+            Intent intentTask = new Intent(DetailTaskActivity.this , TaskActivity.class);
+            intentTask.putExtra(SubPlanning.ID, mIdSubPlanning);
+            intentTask.putExtra(SubPlanning.ID_PLANNING, mIdPlanning);
+            intentTask.putExtra(SubPlanning.TASK, mTaskSubPlanning);
+            intentTask.putExtra(SubPlanning.ASSIGNEE, args.getString(SubPlanning.ASSIGNEE));
+            intentTask.putExtra(SubPlanning.ESTIMATION, args.getInt(SubPlanning.ESTIMATION));
+            intentTask.putExtra(SubPlanning.STATUS, args.getString(SubPlanning.STATUS));
+            intentTask.putExtra(SubPlanning.DATE, args.getString(SubPlanning.DATE));
+            intentTask.putExtra(SubPlanning.DESCRIPTION, args.getString(SubPlanning.DESCRIPTION));
+
+            startActivity(intentTask);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /*DetailTaskView*/

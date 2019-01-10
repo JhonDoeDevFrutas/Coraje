@@ -12,12 +12,9 @@ import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.Customer;
@@ -197,7 +194,7 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView 
         if (mPlanning != null){
             toolbar.setTitle("Ajustes");
         }
-
+        toolbar.setSubtitle("PlanningActivity");
         setSupportActionBar(toolbar);
     }
 
@@ -215,7 +212,7 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView 
 
         mPlanning.setModule(Module.getModule(mDescriptionModule));              // get module
         mPlanning.setPriority(Priority.getPriority(mDescriptionPriority));      // get priority
-        mPlanning.setStatus(Status.getStatus(args.getString(Planning.STATUS))); // get priority
+        mPlanning.setStatus(Status.getStatus(args.getString(Planning.STATUS))); // get status
 
         edtTask.setText(mPlanning.getTask());
         edtDescription.setText(mPlanning.getDescription());

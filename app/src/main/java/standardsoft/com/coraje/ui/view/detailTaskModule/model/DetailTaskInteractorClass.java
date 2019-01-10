@@ -35,8 +35,8 @@ public class DetailTaskInteractorClass implements DetailTaskInteractor {
     }
 
     @Override
-    public void addRemarkTask(String idSubPlanning, Remark remark) {
-        mDatabase.addRemarkTask(idSubPlanning, remark, new BasicErrorEventCallback() {
+    public void addRemarkTask(String idPlanning, String idSubPlanning, Remark remark) {
+        mDatabase.addRemarkTask(idPlanning, idSubPlanning, remark, new BasicErrorEventCallback() {
             @Override
             public void onSuccess() {
                 post(DetailTaskEvent.REMARK_ADDED);

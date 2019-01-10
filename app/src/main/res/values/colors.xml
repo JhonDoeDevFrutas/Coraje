@@ -9,9 +9,10 @@
     <color name="pink">#fe104d</color>
 
     <color name="colorRed">#b71c1c</color>
-    <color name="colorBlue">#1d8ddf</color>
-    <color name="colorGreen">#1b5e20</color>
+    <color name="colorBlue">#669DF5</color>
+    <color name="colorGreen">#5AC47D</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorOrange">#F1AD54</color>
     <color name="color_transparent">#80000000</color>
     <color name="colorWhite">#FFFFFF</color><!--50%-->
 

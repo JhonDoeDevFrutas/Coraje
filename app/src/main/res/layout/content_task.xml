@@ -27,7 +27,7 @@
             android:baselineAligned="false">
 
             <com.jaredrummler.materialspinner.MaterialSpinner
-                android:id="@+id/customers_spinner"
+                android:id="@+id/status_spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
@@ -39,29 +39,26 @@
                 android:layout_weight="50">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etOrden"
+                    android:id="@+id/edt_time_stimation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/artist.hint.time"
-                    android:enabled="false"
-                    android:focusableInTouchMode="false"/>
+                    android:ems="10"
+                    android:inputType="number"
+                    android:hint="@string/artist.hint.time"/>
             </android.support.design.widget.TextInputLayout>
-
-
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/etNotas"
+                android:id="@+id/edt_notas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/artist.hint.notes"
                 android:gravity="top|start"
                 android:inputType="textMultiLine"
-                android:maxLength="@integer/notes.maxLenght"
-                android:enabled="false"/>
+                android:maxLength="@integer/notes.maxLenght"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 

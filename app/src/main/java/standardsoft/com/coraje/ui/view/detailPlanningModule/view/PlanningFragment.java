@@ -80,7 +80,8 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
     }
 
     private void prepararToolbar() {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("TAREAS");           // Toolbar
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("TAREAS");// Toolbar
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("PlanningFragment");
     }
 
     private void prepararUI() {
