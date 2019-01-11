@@ -73,6 +73,10 @@ public class FirebaseRealtimeDatabaseAPI {
         return getReference().child(FirebaseReferences.REMARK_REFERENCE).child(uid);
     }
 
+    public DatabaseReference getUserReference(){
+        return getReference().child(FirebaseReferences.USER_REFERENCE);
+    }
+
     public DatabaseReference getSupportReference(){
         return getSupportReference().child(PATH_SUPPORT);
     }

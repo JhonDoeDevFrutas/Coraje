@@ -44,7 +44,9 @@
         <activity
             android:name=".ui.view.detailTaskModule.view.DetailTaskActivity"
             android:label="@string/title_activity_detail_task"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.view.SignInModule.view.SignInActivity" />
+        <activity android:name=".ui.view.SignUp.view.SignUpActivity"></activity>
     </application>
 
 </manifest>

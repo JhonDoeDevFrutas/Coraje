@@ -21,6 +21,7 @@ import java.util.List;
 import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.Remark;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
+import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.ui.view.detailTaskModule.DetailTaskPresenter;
 import standardsoft.com.coraje.ui.view.detailTaskModule.DetailTaskPresenterClass;
 import standardsoft.com.coraje.ui.view.detailTaskModule.view.adapter.RequestAdapter;
@@ -41,6 +42,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
 
     private DetailTaskPresenter mPresenter;
 
+    String mUserName;
     Bundle args;
 
     @Override
@@ -52,6 +54,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
         args = getIntent().getExtras();
 
         if (args != null){
+            mUserName = args.getString(User.NAME);
             mIdPlanning = args.getString(SubPlanning.ID_PLANNING);
             mIdSubPlanning = args.getString(SubPlanning.ID);
             mTaskSubPlanning = args.getString(SubPlanning.TASK);
@@ -100,6 +103,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
                 if (CommonUtils.validatePlanning(getBaseContext(), edtRemark)){
                     Remark remark = new Remark();
                     remark.setDescription(edtRemark.getText().toString());
+                    remark.setUser(mUserName);
 
                     Date date = new Date();
                     long starDate = date.getTime();

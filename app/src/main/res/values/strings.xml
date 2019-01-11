@@ -31,4 +31,7 @@
     <string name="title_activity_detail_task">Observación</string>
     <string name="add_message_request">Solicitud enviada exitosamente</string>
     <string name="title_update">Actualizar</string>
+    <string name="slogan">Cuando quieres puedes el resto son excusas.</string>
+    <string name="error_phone_number_register">Phone number already register</string>
+    <string name="action_sign_off">Cerrar Sesión</string>
 </resources>

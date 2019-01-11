@@ -1,5 +1,6 @@
 package standardsoft.com.coraje.ui.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.FragmentManager;
 import android.support.design.widget.NavigationView;
@@ -10,13 +11,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import standardsoft.com.coraje.MainActivity;
 import standardsoft.com.coraje.R;
+import standardsoft.com.coraje.data.model.entities.User;
+import standardsoft.com.coraje.data.preferences.SessionPrefs;
 import standardsoft.com.coraje.ui.view.detailActivityModule.view.ActivitysFragment;
 import standardsoft.com.coraje.ui.view.detailPlanningModule.view.PlanningFragment;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    String mName;
+    // UI references.
+    TextView txtName, txtPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,31 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View navView = navigationView.getHeaderView(0);
+        prepararUI(navView);// Preparar elementos UI
+        onBringData(getIntent()); // Traer Datos
+    }
+
+    private void prepararUI(View view) {
+        txtName = (TextView)view.findViewById(R.id.txt_name);
+        txtPhone = (TextView)view.findViewById(R.id.txt_phone);
+    }
+
+    private void onBringData(Intent intentHome) {
+        String phone    = "";
+
+        if (SessionPrefs.get(Home.this).isLoggedIn()){
+            // Obtener usuario
+            mName    = SessionPrefs.get(getBaseContext()).getName();
+            phone    = SessionPrefs.get(getBaseContext()).getPhone();
+        }else {
+            mName  = intentHome.getStringExtra(User.NAME);
+            phone = intentHome.getStringExtra(User.PHONE);
+        }
+
+        txtName.setText(mName);
+        txtPhone.setText(phone);
     }
 
     @Override
@@ -73,6 +108,10 @@ public class Home extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if (id == R.id.action_signOff){ // Cerrar Sesión
+            SessionPrefs.get(getBaseContext()).logOut();
+
+            onClose();
         }
 
         return super.onOptionsItemSelected(item);
@@ -85,8 +124,13 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager manager = getFragmentManager();
 
+        Bundle arguments = new Bundle();
+        arguments.putString(User.NAME, mName);
+
         if (id == R.id.nav_activitys) {
-            manager.beginTransaction().replace(R.id.content_frame, new ActivitysFragment()).commit();
+            ActivitysFragment activitysFragment = new ActivitysFragment();
+            activitysFragment.setArguments(arguments);
+            manager.beginTransaction().replace(R.id.content_frame, activitysFragment).commit();
         } else if (id == R.id.nav_bugs) {
 
         } else if (id == R.id.nav_planning) {
@@ -102,5 +146,13 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void onClose() {
+        SessionPrefs.get(getBaseContext()).logOut();
+
+        Intent intentMain = new Intent(this, MainActivity.class);
+        startActivity(intentMain);
+        finish();
     }
 }

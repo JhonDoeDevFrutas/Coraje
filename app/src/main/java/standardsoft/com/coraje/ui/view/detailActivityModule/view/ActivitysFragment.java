@@ -23,6 +23,7 @@ import java.util.List;
 
 import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
+import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.data.preferences.FirebaseReferences;
 import standardsoft.com.coraje.ui.view.detailActivityModule.ActivitysPresenter;
 import standardsoft.com.coraje.ui.view.detailActivityModule.ActivitysPresenterClass;
@@ -48,6 +49,7 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
     DatabaseReference mDbReference;//our database reference object
 
     private ActivitysPresenter mPresenter;
+    String mUserName;
 
     public ActivitysFragment() {
         mPresenter = new ActivitysPresenterClass(this);
@@ -58,6 +60,9 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_activitys, container, false);
+
+        Bundle arguments = getArguments();
+        mUserName = arguments.getString(User.NAME);// Recuperamos información
 
 /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -115,6 +120,7 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
 
     private void onTask(SubPlanning subPlanning, int typeSend){
         Intent intentTask = new Intent(getActivity(), TaskActivity.class);
+        intentTask.putExtra(User.NAME, mUserName);
         intentTask.putExtra(SubPlanning.ID, subPlanning.getId());
         intentTask.putExtra(SubPlanning.ID_PLANNING, subPlanning.getIdPlanning());
         intentTask.putExtra(SubPlanning.TASK, subPlanning.getTask());
@@ -129,6 +135,7 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
 
     private void onDetailTask(SubPlanning subPlanning, int typeSend){
         Intent intentDetailTask = new Intent(getActivity(), DetailTaskActivity.class);
+        intentDetailTask.putExtra(User.NAME, mUserName);
         intentDetailTask.putExtra(SubPlanning.ID, subPlanning.getId());
         intentDetailTask.putExtra(SubPlanning.ID_PLANNING, subPlanning.getIdPlanning());
         intentDetailTask.putExtra(SubPlanning.TASK, subPlanning.getTask());

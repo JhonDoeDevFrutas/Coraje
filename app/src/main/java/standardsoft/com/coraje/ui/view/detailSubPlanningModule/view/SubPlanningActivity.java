@@ -86,6 +86,7 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
 
     private void prepararToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setSubtitle("SubPlanningActivity");
         setSupportActionBar(toolbar);
     }
 

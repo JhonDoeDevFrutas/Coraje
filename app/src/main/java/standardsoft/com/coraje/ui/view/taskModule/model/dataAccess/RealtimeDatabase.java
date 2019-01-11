@@ -27,7 +27,7 @@ public class RealtimeDatabase {
     }
 
     public void subscribeToDeveloper(final TaskEventListener listener) {
-        mDatabaseAPI.getDevelopersReference().addValueEventListener(new ValueEventListener() {
+        mDatabaseAPI.getUserReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Developer> developerList = new ArrayList<>();

@@ -192,7 +192,7 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView 
     private void prepararToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mPlanning != null){
-            toolbar.setTitle("Ajustes");
+            toolbar.setTitle("Modificar");
         }
         toolbar.setSubtitle("PlanningActivity");
         setSupportActionBar(toolbar);

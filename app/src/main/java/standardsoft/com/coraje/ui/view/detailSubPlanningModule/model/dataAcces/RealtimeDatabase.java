@@ -18,6 +18,7 @@ import standardsoft.com.coraje.data.model.data_access.FirebaseRealtimeDatabaseAP
 import standardsoft.com.coraje.data.model.entities.Developer;
 import standardsoft.com.coraje.data.model.entities.Planning;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
+import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.ui.view.detailSubPlanningModule.events.SubPlanningEvent;
 
 public class RealtimeDatabase {
@@ -154,14 +155,13 @@ public class RealtimeDatabase {
 */
 
     public void subscribeToDeveloperList(final SubPlanningEventListener listener) {
-        mDatabaseAPI.getDevelopersReference().addValueEventListener(new ValueEventListener() {
+        mDatabaseAPI.getUserReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Developer> developerList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     developerList.add(getDeveloper(postSnapshot));
                 }
-
                 listener.onDataDeveloper(developerList);
             }
 
@@ -176,11 +176,28 @@ public class RealtimeDatabase {
                 }
             }
         });
-    }
 
-    private Planning getPlanning(DataSnapshot dataSnapshot) {
-        Planning planning = dataSnapshot.getValue(Planning.class);
-        return planning;
+/*        mDatabaseAPI.getDevelopersReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Developer> developerList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    developerList.add(getDeveloper(postSnapshot));
+                }
+                listener.onDataDeveloper(developerList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                switch (databaseError.getCode()) {
+                    case DatabaseError.PERMISSION_DENIED:
+                        listener.onError(R.string.error_permission_denied);
+                        break;
+                    default:
+                        listener.onError(R.string.error_server);
+                }
+            }
+        });*/
     }
 
     private SubPlanning getSubPlanning(DataSnapshot dataSnapshot) {
@@ -190,6 +207,7 @@ public class RealtimeDatabase {
 
     private Developer getDeveloper(DataSnapshot dataSnapshot) {
         Developer developer = dataSnapshot.getValue(Developer.class);
+        developer.setId(dataSnapshot.getKey());
         return developer;
     }
 }

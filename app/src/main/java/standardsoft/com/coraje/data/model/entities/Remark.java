@@ -6,7 +6,8 @@ public class Remark {
 
     private String id;
     private String description;
-    private long date;        //Fecha creacion
+    private long date;          //Fecha creacion
+    private String user;        //user comments
 
     // Constructor vacio
     public Remark() {}
@@ -40,5 +41,13 @@ public class Remark {
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

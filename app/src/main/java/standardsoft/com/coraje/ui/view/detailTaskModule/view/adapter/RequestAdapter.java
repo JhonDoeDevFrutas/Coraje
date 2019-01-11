@@ -53,6 +53,7 @@ public class RequestAdapter extends BaseAdapter {
         TextView txtMessage = (TextView)view.findViewById(R.id.message_text);
 
         Remark remark = (Remark)getItem(position);
+        txtUser.setText(remark.getUser().toString());
         txtTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",remark.getDate()));
         txtMessage.setText(remark.getDescription().toString().trim());
 
