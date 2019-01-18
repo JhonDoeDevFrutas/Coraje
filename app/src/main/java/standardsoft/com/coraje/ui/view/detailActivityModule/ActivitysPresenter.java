@@ -6,7 +6,7 @@ public interface ActivitysPresenter {
     void onCreate();
     void onDestroy();
     void onPause();
-    void onResume();
+    void onResume(String phone, boolean selectAll);
 
     void onEventListener(ActivitysEvent event);
 }

@@ -17,8 +17,8 @@ public class ActivitysInteractorClass implements ActivitysInteractor {
     }
 
     @Override
-    public void subscribeToSubPlanningList() {
-        mDatabase.subscribeToSubPlanningList(new ActivitysEventListener() {
+    public void subscribeToSubPlanningList(String phone, boolean selectAll) {
+        mDatabase.subscribeToSubPlanningList(phone, selectAll, new ActivitysEventListener() {
             @Override
             public void onDataChange(List<SubPlanning> subPlanningList) {
                 post(ActivitysEvent.SUBPLANNING_ADDED, subPlanningList);

@@ -1,5 +1,7 @@
 package standardsoft.com.coraje.data.model.entities;
 
+import java.util.Comparator;
+
 public class Project {
     private String id;
     private String description;
@@ -28,5 +30,14 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static class Comparators{
+        public static Comparator<Project> DESCRIPTION = new Comparator<Project>() {
+            @Override
+            public int compare(Project project, Project t1) {
+                return project.description.compareTo(t1.description);
+            }
+        };
     }
 }

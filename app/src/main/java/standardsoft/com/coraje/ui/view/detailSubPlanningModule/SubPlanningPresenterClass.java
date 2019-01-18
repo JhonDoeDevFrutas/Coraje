@@ -29,7 +29,6 @@ public class SubPlanningPresenterClass implements SubPlanningPresenter {
         if (mView != null){
             mView.showProgress();
             mInteractor.subscribeToSubPlanningList(idPlanning);
-            mView.showProgress();
             mInteractor.subscribeToDeveloperList();
         }
     }

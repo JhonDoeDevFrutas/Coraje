@@ -39,6 +39,7 @@ public class DetailPlanningPresenterClass implements DetailPlanningPresenter {
     @Override
     public void onResume() {
         if (mView != null){
+            mView.showProgress();
             mInteractor.subscribeToPlanningList();
         }
     }
@@ -47,6 +48,8 @@ public class DetailPlanningPresenterClass implements DetailPlanningPresenter {
     @Override
     public void onEventListener(DetailPlanningEvent event) {
         if (mView != null){
+            mView.hideProgress();
+
             switch (event.getTypeEvent()){
                 case DetailPlanningEvent.PLANNING_ADDED:
                     mView.addDatas(event.getPlannings());

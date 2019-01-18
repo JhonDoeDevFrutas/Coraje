@@ -20,8 +20,53 @@ public class RealtimeDatabase {
         mDatabaseAPI = FirebaseRealtimeDatabaseAPI.getInstance();
     }
 
-    public void subscribeToSubPlanningList(final ActivitysEventListener listener){
+    public void subscribeToSubPlanningList(final String phone, final boolean selectAll, final ActivitysEventListener listener){
         mDatabaseAPI.getSubPlanningReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<SubPlanning> subPlannings = new ArrayList<>();
+                //iterating through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String idPlanning = postSnapshot.getKey();
+                    for (DataSnapshot snapshot : postSnapshot.getChildren()) {
+                        // getting subplanning
+                        SubPlanning subPlanning = getSubPlanning(snapshot);
+                        subPlanning.setIdPlanning(idPlanning);
+
+                        if (!selectAll){
+                            String strPhone = subPlanning.getAssignee() != null ? subPlanning.getAssignee().getMovil() : "";
+                            if (strPhone.equals(phone)){
+                                //adding subplanning to the list
+                                subPlannings.add(subPlanning);
+                            }
+                        }else {
+                            //adding subplanning to the list
+                            subPlannings.add(subPlanning);
+
+                        }
+                    }
+                }
+
+                Collections.sort(subPlannings, SubPlanning.Comparators.DATE);
+                listener.onDataChange(subPlannings);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                switch (databaseError.getCode()){
+                    case DatabaseError.PERMISSION_DENIED:
+                        listener.onError(R.string.error_permission_denied);
+                        break;
+                    default:
+                        listener.onError(R.string.error_server);
+                }
+            }
+        });
+    }
+
+    public void getTaskByDeveloper(final ActivitysEventListener listener){
+        Query myQuery = mDatabaseAPI.getSubPlanningReference().  orderByChild("name").equalTo("Danny Murcia");
+        myQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<SubPlanning> subPlannings = new ArrayList<>();
@@ -55,6 +100,7 @@ public class RealtimeDatabase {
             }
         });
     }
+
 
     private SubPlanning getSubPlanning(DataSnapshot dataSnapshot){
         SubPlanning subPlanning = dataSnapshot.getValue(SubPlanning.class);

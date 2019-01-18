@@ -82,6 +82,7 @@ public class TaskActivity extends AppCompatActivity implements TaskView{
         mSubPlanning = new SubPlanning();
         mSubPlanning.setId(args.getString(SubPlanning.ID));
         //mSubPlanning.setIdPlanning(args.getString(SubPlanning.ID_PLANNING));
+        mSubPlanning.setTaskPlanning(args.getString(SubPlanning.TASK_PLANNING));
         mSubPlanning.setTask(args.getString(SubPlanning.TASK));
         mSubPlanning.setStatus(Status.getStatus(mDescriptionStatus));
         mSubPlanning.setEstimation(args.getInt(SubPlanning.ESTIMATION));    // get status
@@ -219,9 +220,12 @@ public class TaskActivity extends AppCompatActivity implements TaskView{
     }
 
     private void saveOrEdit() {
+        String strTime = edtTime.getText().toString();
+        int time = strTime.isEmpty() ? 0 : Integer.parseInt(strTime);
+
         mSubPlanning.setAssignee(searchDeveloperByName(mDescriptionDeveloper));
         mSubPlanning.setStatus(Status.getStatus(mDescriptionStatus));
-        mSubPlanning.setEstimation(Integer.parseInt(edtTime.getText().toString()));
+        mSubPlanning.setEstimation(time);
         mSubPlanning.setDescription(edtNotas.getText().toString());
 
         mPresenter.update(mIdPlanning, mSubPlanning);
@@ -277,5 +281,7 @@ public class TaskActivity extends AppCompatActivity implements TaskView{
     public void updateSuccess() {
         Snackbar.make(contentTask, R.string.add_message_request, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+
+        finish();
     }
 }

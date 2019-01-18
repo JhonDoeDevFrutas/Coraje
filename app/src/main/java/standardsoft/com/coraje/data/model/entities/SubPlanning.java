@@ -8,6 +8,7 @@ public class SubPlanning extends Task implements Comparable<SubPlanning>{
 
     public static final String ID = "id";
     public static final String ID_PLANNING = "idPlanning";
+    public static final String TASK_PLANNING = "taskPlanning";
     public static final String TASK = "task";
     public static final String ASSIGNEE = "assignee";
     public static final String STATUS = "status";
@@ -17,6 +18,7 @@ public class SubPlanning extends Task implements Comparable<SubPlanning>{
 
     private String id;
     private String idPlanning;
+    private String taskPlanning;
 
     // Constructor vacio
     public SubPlanning() {}
@@ -41,6 +43,14 @@ public class SubPlanning extends Task implements Comparable<SubPlanning>{
 
     public void setIdPlanning(String idPlanning) {
         this.idPlanning = idPlanning;
+    }
+
+    public String getTaskPlanning() {
+        return taskPlanning;
+    }
+
+    public void setTaskPlanning(String taskPlanning) {
+        this.taskPlanning = taskPlanning;
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
@@ -38,6 +39,7 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
     List<SubPlanning> mSubPlanningList;
 
     private String mIdPlanning;
+    private String mDescriptionTask;
 
     ArrayList<Developer> mDevelopersList;
 
@@ -55,6 +57,7 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
         args = getIntent().getExtras();
         if (args != null){
             mIdPlanning = args.getString(Planning.ID);
+            mDescriptionTask = args.getString(Planning.TASK);
         }
 
         mPresenter = new SubPlanningPresenterClass(this);
@@ -86,6 +89,7 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
 
     private void prepararToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(mDescriptionTask);
         toolbar.setSubtitle("SubPlanningActivity");
         setSupportActionBar(toolbar);
     }
@@ -122,6 +126,7 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
         alertDialog.setIcon(R.drawable.ic_add);
 
         final EditText edtTask        = (EditText) viewAdd.findViewById(R.id.edt_task);
+        final EditText edtNota        = (EditText) viewAdd.findViewById(R.id.edt_nota);
         final MaterialSpinner developersSpinner = (MaterialSpinner)viewAdd.findViewById(R.id.developers_spinner);
 
         developersSpinner.setItems(getListDeveloper());
@@ -149,21 +154,29 @@ public class SubPlanningActivity extends AppCompatActivity implements SubPlannin
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CommonUtils.validatePlanning(getBaseContext(), edtTask)){
-                    if (mIdPlanning != null){
-                        SubPlanning subPlanning = new SubPlanning();
-                        subPlanning.setTask(edtTask.getText().toString());
-                        subPlanning.setAssignee(searchDeveloperByName(mDescriptionDeveloper));
-                        subPlanning.setStatus(Status.getStatus("ESPERANDO REVISION"));
+                if (mDescriptionDeveloper == null){
+                    Toast.makeText(SubPlanningActivity.this,
+                            "Debe seleccionar un informatico", Toast.LENGTH_SHORT).show();
+                }else {
+                    if (CommonUtils.validatePlanning(getBaseContext(), edtTask)){
+                        if (mIdPlanning != null){
+                            SubPlanning subPlanning = new SubPlanning();
+                            subPlanning.setTask(edtTask.getText().toString());
+                            subPlanning.setDescription(edtNota.getText().toString());
+                            subPlanning.setAssignee(searchDeveloperByName(mDescriptionDeveloper));
+                            subPlanning.setStatus(Status.getStatus("ESPERANDO REVISION"));
 
-                        Date date = new Date();
-                        long starDate = date.getTime();
-                        subPlanning.setDate(starDate);
+                            Date date = new Date();
+                            long starDate = date.getTime();
+                            subPlanning.setDate(starDate);
+                            subPlanning.setTaskPlanning(mDescriptionTask);
 
-                        mPresenter.addSubPlanning(mIdPlanning, subPlanning);
-                        dialog.dismiss();
+                            mPresenter.addSubPlanning(mIdPlanning, subPlanning);
+                            dialog.dismiss();
+                        }
                     }
                 }
+
             }
         });
     }

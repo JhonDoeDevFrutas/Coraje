@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import standardsoft.com.coraje.R;
@@ -34,7 +35,7 @@ public class RealtimeDatabase {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     developerList.add(getDeveloper(postSnapshot));
                 }
-
+                Collections.sort(developerList, Developer.Comparators.name);
                 listener.onDataDeveloper(developerList);
             }
 

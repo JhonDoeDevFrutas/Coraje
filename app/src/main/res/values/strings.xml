@@ -34,4 +34,5 @@
     <string name="slogan">Cuando quieres puedes el resto son excusas.</string>
     <string name="error_phone_number_register">Phone number already register</string>
     <string name="action_sign_off">Cerrar Sesión</string>
+    <string name="select_all">Todas las Tareas</string>
 </resources>

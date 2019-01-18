@@ -36,9 +36,10 @@ public class ActivitysPresenterClass implements ActivitysPresenter {
     }
 
     @Override
-    public void onResume() {
+    public void onResume(String phone, boolean selectAll) {
         if (mView != null){
-            mInteractor.subscribeToSubPlanningList();
+            mView.showProgress();
+            mInteractor.subscribeToSubPlanningList(phone, selectAll);
         }
     }
 
@@ -46,6 +47,8 @@ public class ActivitysPresenterClass implements ActivitysPresenter {
     @Override
     public void onEventListener(ActivitysEvent event) {
         if (mView != null){
+            mView.hideProgress();
+
             switch (event.getTypeEvent()){
                 case ActivitysEvent.SUBPLANNING_ADDED:
                     mView.resultSubPlanning(event.getSubPlannings());

@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import standardsoft.com.coraje.R;
@@ -92,6 +93,7 @@ public class RealtimeDatabase {
                     projectsList.add(getProject(postSnapshot));
                 }
 
+                Collections.sort(projectsList, Project.Comparators.DESCRIPTION);
                 listener.onDataChangeProject(projectsList);
             }
 
@@ -118,6 +120,7 @@ public class RealtimeDatabase {
                     customerList.add(getCustomer(postSnapshot));
                 }
 
+                Collections.sort(customerList, Customer.Comparators.NAME); // order by name
                 listener.onDataChange(customerList);
             }
 
@@ -144,6 +147,7 @@ public class RealtimeDatabase {
                     developerList.add(getDeveloper(postSnapshot));
                 }
 
+                Collections.sort(developerList, Developer.Comparators.name);
                 listener.onDataDeveloper(developerList);
             }
 

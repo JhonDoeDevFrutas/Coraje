@@ -46,7 +46,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
-        public TextView txtTask;
+        public TextView txtTask, txtTaskPlanning;
         public TextView txt1,txt2,txt3;
         public View priorityStatus;
 
@@ -54,10 +54,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
             super(itemView);
 
             priorityStatus = itemView.findViewById(R.id.indicator_status);
-            txtTask  = (TextView) itemView.findViewById(R.id.text_task);
-            txt1  = (TextView) itemView.findViewById(R.id.text_1);
-            txt2  = (TextView) itemView.findViewById(R.id.text_2);
-            txt3  = (TextView) itemView.findViewById(R.id.text_3);
+            txtTask             = (TextView) itemView.findViewById(R.id.text_task);
+            txtTaskPlanning     = (TextView) itemView.findViewById(R.id.text_task_planning);
+            txt1                = (TextView) itemView.findViewById(R.id.text_1);
+            txt2                = (TextView) itemView.findViewById(R.id.text_2);
+            txt3                = (TextView) itemView.findViewById(R.id.text_3);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -93,11 +94,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SubPlanning subPlanning = mItems.get(position);
 
-        String task     = subPlanning.getTask().trim();
-        String status   = subPlanning.getStatus().getDescription();
-        String developer = subPlanning.getAssignee().getName().toString().trim();
-        String time     = Integer.toString(subPlanning.getEstimation()) ;
-        long date       = subPlanning.getDate();
+        String task         = subPlanning.getTask().trim();
+        String taskPlanning = subPlanning.getTaskPlanning().trim();
+        String status       = subPlanning.getStatus().getDescription();
+        String developer    = subPlanning.getAssignee() != null ? subPlanning.getAssignee().getName().trim() : "" ;
+        String time         = Integer.toString(subPlanning.getEstimation()) ;
+        long date           = subPlanning.getDate();
 
         View priorityStatus = holder.priorityStatus;
 
@@ -114,6 +116,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         }
 
         holder.txtTask.setText(task);
+        holder.txtTaskPlanning.setText(taskPlanning);
         holder.txt1.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT).format(date));
         holder.txt2.setText(developer);
         holder.txt3.setText(time+" Hora(s)");

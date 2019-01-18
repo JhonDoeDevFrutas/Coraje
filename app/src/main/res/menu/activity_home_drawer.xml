@@ -9,9 +9,14 @@
             android:icon="@drawable/ic_access_alarm"
             android:title="Actividades" />
         <item
+            android:id="@+id/nav_activity_register"
+            android:icon="@drawable/ic_description"
+            android:title="Registro de Actividades" />
+        <item
             android:id="@+id/nav_support"
             android:icon="@drawable/ic_perm_phone_msg"
-            android:title="Soporte a Clientes" />
+            android:title="Soporte a Clientes"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_bugs"
             android:icon="@drawable/ic_bug_report"
@@ -27,12 +32,14 @@
             <item
                 android:id="@+id/nav_project"
                 android:icon="@drawable/ic_lightbulb"
-                android:title="Proyectos" />
+                android:title="Proyectos"
+                android:visible="false"/>
 
             <item
                 android:id="@+id/nav_developer"
                 android:icon="@drawable/ic_face"
-                android:title="Informaticos" />
+                android:title="Informaticos"
+                android:visible="false"/>
             <item
                 android:id="@+id/nav_customer"
                 android:icon="@drawable/ic_business"

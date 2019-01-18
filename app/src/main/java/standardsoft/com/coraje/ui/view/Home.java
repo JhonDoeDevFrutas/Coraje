@@ -20,11 +20,12 @@ import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.data.preferences.SessionPrefs;
 import standardsoft.com.coraje.ui.view.detailActivityModule.view.ActivitysFragment;
 import standardsoft.com.coraje.ui.view.detailPlanningModule.view.PlanningFragment;
+import standardsoft.com.coraje.ui.view.detailRemarkFragmentModule.view.DetailRemarkFragment;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String mName;
+    String mName, mPhone;
     // UI references.
     TextView txtName, txtPhone;
 
@@ -66,19 +67,17 @@ public class Home extends AppCompatActivity
     }
 
     private void onBringData(Intent intentHome) {
-        String phone    = "";
-
         if (SessionPrefs.get(Home.this).isLoggedIn()){
             // Obtener usuario
-            mName    = SessionPrefs.get(getBaseContext()).getName();
-            phone    = SessionPrefs.get(getBaseContext()).getPhone();
+            mName   = SessionPrefs.get(getBaseContext()).getName();
+            mPhone  = SessionPrefs.get(getBaseContext()).getPhone();
         }else {
-            mName  = intentHome.getStringExtra(User.NAME);
-            phone = intentHome.getStringExtra(User.PHONE);
+            mName   = intentHome.getStringExtra(User.NAME);
+            mPhone  = intentHome.getStringExtra(User.PHONE);
         }
 
         txtName.setText(mName);
-        txtPhone.setText(phone);
+        txtPhone.setText(mPhone);
     }
 
     @Override
@@ -126,11 +125,14 @@ public class Home extends AppCompatActivity
 
         Bundle arguments = new Bundle();
         arguments.putString(User.NAME, mName);
+        arguments.putString(User.PHONE, mPhone);
 
         if (id == R.id.nav_activitys) {
             ActivitysFragment activitysFragment = new ActivitysFragment();
             activitysFragment.setArguments(arguments);
             manager.beginTransaction().replace(R.id.content_frame, activitysFragment).commit();
+        } else if (id == R.id.nav_activity_register) {
+            manager.beginTransaction().replace(R.id.content_frame, new DetailRemarkFragment()).commit();
         } else if (id == R.id.nav_bugs) {
 
         } else if (id == R.id.nav_planning) {

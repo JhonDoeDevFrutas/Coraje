@@ -1,5 +1,7 @@
 package standardsoft.com.coraje.data.model.entities;
 
+import java.util.Comparator;
+
 public class Developer extends User {
     private String id;
 
@@ -18,5 +20,14 @@ public class Developer extends User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public static class Comparators{
+        public static Comparator<Developer> name = new Comparator<Developer>() {
+            @Override
+            public int compare(Developer developer, Developer t1) {
+                return developer.getName().compareTo(t1.getName());
+            }
+        };
     }
 }

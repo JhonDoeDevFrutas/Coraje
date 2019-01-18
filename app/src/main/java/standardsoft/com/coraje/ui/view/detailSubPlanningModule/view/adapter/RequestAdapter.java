@@ -93,7 +93,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         SubPlanning subPlanning = mItems.get(position);
 
         String task = subPlanning.getTask().trim();
-        String developer = subPlanning.getAssignee().getName();
+        String developer = subPlanning.getAssignee() != null ? subPlanning.getAssignee().getName() : "";
         String status = subPlanning.getStatus().getDescription();
 
         View priorityStatus = holder.priorityStatus;

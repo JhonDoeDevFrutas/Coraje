@@ -8,11 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +34,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
     private EditText edtRemark;
     private CoordinatorLayout contentMain;
     private ListView listRemark;
+    ProgressBar progressBar;
 
     private String mIdSubPlanning;
     private String mIdPlanning;
@@ -86,6 +87,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
         contentMain = (CoordinatorLayout)findViewById(R.id.contentMain);
         edtRemark = (EditText)findViewById(R.id.edt_remark);
         listRemark = (ListView)findViewById(R.id.list_of_remark);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     private void configToolbar() {
@@ -147,6 +149,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
             Intent intentTask = new Intent(DetailTaskActivity.this , TaskActivity.class);
             intentTask.putExtra(SubPlanning.ID, mIdSubPlanning);
             intentTask.putExtra(SubPlanning.ID_PLANNING, mIdPlanning);
+            intentTask.putExtra(SubPlanning.TASK_PLANNING, args.getString(SubPlanning.TASK_PLANNING));
             intentTask.putExtra(SubPlanning.TASK, mTaskSubPlanning);
             intentTask.putExtra(SubPlanning.ASSIGNEE, args.getString(SubPlanning.ASSIGNEE));
             intentTask.putExtra(SubPlanning.ESTIMATION, args.getInt(SubPlanning.ESTIMATION));
@@ -168,12 +171,12 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
 
     @Override
     public void showProgress() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

@@ -13,8 +13,10 @@ import android.widget.Toast;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.Customer;
@@ -128,6 +130,9 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView 
         for (Module module : Module.values()) {
             moduleList.add(module.getDescription());
         }
+        /*Collections.sort(moduleList, Collections.<String>reverseOrder());*/
+        Collections.sort(moduleList);//order by description
+
         modulesSpinner.setItems(moduleList);
         modulesSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
@@ -148,6 +153,8 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView 
         for (Priority priority : Priority.values()) {
             priorityList.add(priority.getDescription());
         }
+        Collections.sort(priorityList);//order by description
+
         prioritysSpinner.setItems(priorityList);
         prioritysSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
@@ -395,6 +402,7 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView 
         for (Customer customer : customersDatas) {
             mCustomersList.add(customer);
         }
+
 
         onConfigCustomerSpinner(customersDatas);
         if (mPlanning != null) {

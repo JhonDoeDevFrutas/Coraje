@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,7 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
     private View view;
     private RecyclerView mReciclador;
     private PlanningAdapter mAdapter;
+    ProgressBar progressBar;
 
     //a list to planning all the section from firebase database
     List<Planning> planningList;
@@ -85,6 +87,7 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
     }
 
     private void prepararUI() {
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mAdapter    = new PlanningAdapter(getActivity(), new ArrayList<Planning>(0));
         mReciclador = (RecyclerView)view.findViewById(R.id.recycler_planning);
     }
@@ -210,9 +213,19 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
         startActivity(intentPlanning);
     }
 
-    /*alter planning*/
     private void onPlanning(Intent intentPlanning) {
         startActivity(intentPlanning);
+    }
+
+    /*DetailPlanningView*/
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
