@@ -5,19 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.Remark;
 
 public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG = RequestAdapter.class.getSimpleName();
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_ITEM = 1;
-    private List<Object> itemObjects;
+    private static final int TYPE_HEADER    = 0;
+    private static final int TYPE_ITEM      = 1;
+    private List<Object> mItems;
 
-    public RequestAdapter(List<Object> itemObjects) {
-        this.itemObjects = itemObjects;
+    public RequestAdapter(List<Object> items) {
+        this.mItems = items;
     }
 
     @Override
@@ -34,30 +35,39 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Object mObject = itemObjects.get(position);
-        Remark remark = (Remark)getItem(position);
-
         if(holder instanceof HeaderViewHolder){
-            ((HeaderViewHolder) holder).headerTitle.setText(remark.getDescription());
+            String key = getItem(position).toString();
+            ((HeaderViewHolder) holder).headerTitle.setText(key);
         }else if(holder instanceof ItemViewHolder){
+            Remark remark = (Remark)getItem(position);
+            long date = remark.getDate();
+
+            ((ItemViewHolder) holder).itemUser.setText(remark.getUser());
             ((ItemViewHolder) holder).itemContent.setText(remark.getDescription());
+            ((ItemViewHolder) holder).itemTime.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT).format(date));
         }
     }
+
     private Object getItem(int position) {
-        return itemObjects.get(position);
+        return mItems.get(position);//3
     }
 
     @Override
     public int getItemCount() {
-        return itemObjects.size();
+        return mItems.size();
     }
+
     @Override
     public int getItemViewType(int position) {
-        if (isPositionHeader(position))
+        if (isPositionHeader(position))//1
             return TYPE_HEADER;
         return TYPE_ITEM;
     }
+
     private boolean isPositionHeader(int position) {
-        return position == 0;
+        if (getItem(position) instanceof String)//2
+            return true;
+
+        return false; //return position == 0;
     }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/item_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:text="JHONDOE"
+        android:textColor="@color/colorRed"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_user"
+        android:layout_alignParentEnd="true"
+        android:text="(21:50:24)"
+        android:id="@+id/item_time" />
+
+    <TextView
+        android:id="@+id/item_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_user"
+        android:text="PLANNING" />
+
+    <TextView
+        android:id="@+id/item_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_task"
+        android:layout_alignParentEnd="true"
+        android:text="EN PROCESO "
+        android:textColor="@color/colorOrange"/>
+
+
+    <TextView
+        android:id="@+id/item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_task"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:text="Comentario"
+        android:textColor="@color/colorBlack"/>
+
+
+</RelativeLayout>

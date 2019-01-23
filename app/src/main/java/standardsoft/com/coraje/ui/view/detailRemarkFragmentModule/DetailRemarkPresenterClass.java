@@ -40,7 +40,8 @@ public class DetailRemarkPresenterClass implements DetailRemarkPresenter {
     public void onResume() {
         if (mView != null){
             mView.showProgress();
-            mInteractor.subscribeToRemarkList();
+            mInteractor.subscribeToSubPlanningList();
+            //mInteractor.subscribeToRemarkList();
         }
     }
 
@@ -52,7 +53,10 @@ public class DetailRemarkPresenterClass implements DetailRemarkPresenter {
 
             switch (event.getTypeEvent()){
                 case RemarkEvent.RESULT_REMARK:
-                    mView.resultSubPlanning(event.getRemarks());
+                    mView.resultRemark(event.getRemarks());
+                    break;
+                case RemarkEvent.RESULT_SUBPLANNING:
+                    mView.resultSubPlanning(event.getSubPlannings());
                     break;
                 case RemarkEvent.ERROR_SERVER:
                     mView.showError(event.getResMsg());

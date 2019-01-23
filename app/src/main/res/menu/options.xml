@@ -12,6 +12,7 @@
     <item
         android:id="@+id/item_select_all"
         android:title="@string/select_all"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:visible="false"/>
 
 </menu>

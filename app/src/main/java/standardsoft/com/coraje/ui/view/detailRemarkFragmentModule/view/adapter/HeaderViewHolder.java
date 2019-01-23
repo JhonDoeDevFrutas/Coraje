@@ -8,9 +8,9 @@ import standardsoft.com.coraje.R;
 
 public class HeaderViewHolder extends RecyclerView.ViewHolder {
     public TextView headerTitle;
+
     public HeaderViewHolder(View itemView) {
         super(itemView);
         headerTitle = (TextView)itemView.findViewById(R.id.header_id);
     }
-
 }

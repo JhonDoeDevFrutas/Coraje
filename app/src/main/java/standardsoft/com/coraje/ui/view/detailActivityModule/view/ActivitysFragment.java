@@ -44,6 +44,8 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
     private TaskAdapter mAdapter;
     ProgressBar progressBar;
 
+    private MenuItem itemToHide;
+
     //a list to store all the subPlanning from firebase database
     List<SubPlanning> subPlanningList;
     List<SubPlanning> searchSubPlanning;
@@ -321,6 +323,9 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.options, menu);
+
+        itemToHide = menu.findItem(R.id.item_select_all);
+        itemToHide.setVisible(true);   // Mostrar Opción
 
         super.onCreateOptionsMenu(menu, inflater);
     }

@@ -15,5 +15,6 @@
     <color name="colorOrange">#F1AD54</color>
     <color name="color_transparent">#80000000</color>
     <color name="colorWhite">#FFFFFF</color><!--50%-->
+    <color name="colorGrey">#e0e0e0</color>
 
 </resources>

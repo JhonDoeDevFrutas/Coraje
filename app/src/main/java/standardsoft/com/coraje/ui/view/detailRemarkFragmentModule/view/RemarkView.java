@@ -3,12 +3,14 @@ package standardsoft.com.coraje.ui.view.detailRemarkFragmentModule.view;
 import java.util.List;
 
 import standardsoft.com.coraje.data.model.entities.Remark;
+import standardsoft.com.coraje.data.model.entities.SubPlanning;
 
 public interface RemarkView {
     void showProgress();
     void hideProgress();
 
-    void resultSubPlanning(List<Remark> datas);
+    void resultRemark(List<Remark> datas);
+    void resultSubPlanning(List<SubPlanning> datas);
 
     void showError(int resMsg);
 }

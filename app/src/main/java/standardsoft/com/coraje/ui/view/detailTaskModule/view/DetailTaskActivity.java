@@ -36,6 +36,8 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
     private ListView listRemark;
     ProgressBar progressBar;
 
+    private MenuItem itemToHide;
+
     private String mIdSubPlanning;
     private String mIdPlanning;
     private String mTaskSubPlanning;
@@ -138,6 +140,9 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.options, menu);
+
+        itemToHide = menu.findItem(R.id.item_update);
+        itemToHide.setVisible(true);   // Mostrar Opción
 
         return true;
     }
