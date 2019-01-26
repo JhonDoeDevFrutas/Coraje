@@ -41,7 +41,6 @@ public class DetailRemarkPresenterClass implements DetailRemarkPresenter {
         if (mView != null){
             mView.showProgress();
             mInteractor.subscribeToSubPlanningList();
-            //mInteractor.subscribeToRemarkList();
         }
     }
 

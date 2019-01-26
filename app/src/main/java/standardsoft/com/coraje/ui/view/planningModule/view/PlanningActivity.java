@@ -354,7 +354,6 @@ public class PlanningActivity extends AppCompatActivity implements PlanningView 
         return stringList;
     }
 
-
     // Lista spinner project
     private List<String> getListProject(List<Project> projectList) {
         List<String> stringList = new ArrayList<>();

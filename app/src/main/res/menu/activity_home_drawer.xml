@@ -11,12 +11,16 @@
         <item
             android:id="@+id/nav_activity_register"
             android:icon="@drawable/ic_description"
-            android:title="Registro de Actividades" />
+            android:title="Seguimiento Actividades" />
         <item
             android:id="@+id/nav_support"
             android:icon="@drawable/ic_perm_phone_msg"
             android:title="Soporte a Clientes"
             android:visible="false"/>
+        <item
+            android:id="@+id/nav_task"
+            android:icon="@drawable/ic_assignment_ind"
+            android:title="Tarea Puntual" />
         <item
             android:id="@+id/nav_bugs"
             android:icon="@drawable/ic_bug_report"

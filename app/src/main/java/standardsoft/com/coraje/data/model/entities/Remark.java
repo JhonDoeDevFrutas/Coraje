@@ -74,8 +74,9 @@ public class Remark {
     public static class Comparators{
         public  static Comparator<Remark> DATE = new Comparator<Remark>() {
             @Override
-            public int compare(Remark remark, Remark t1) {
-                return Long.toString(t1.getDate()).compareTo(Long.toString(remark.getDate()));
+            public int compare(Remark t1, Remark t2) {
+                return t2.getDate() < t1.getDate() ? -1 :
+                        t2.getDate() > t1.getDate() ? 1 : 0;
             }
         };
     }

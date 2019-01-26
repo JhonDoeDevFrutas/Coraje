@@ -1,6 +1,8 @@
 package standardsoft.com.coraje.ui.view.detailActivityModule.view;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,12 +19,14 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import standardsoft.com.coraje.R;
+import standardsoft.com.coraje.data.model.entities.Developer;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
 import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.data.preferences.SessionPrefs;
@@ -49,6 +53,7 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
     //a list to store all the subPlanning from firebase database
     List<SubPlanning> subPlanningList;
     List<SubPlanning> searchSubPlanning;
+    ArrayList<Developer> mDevelopersList;
 
     // Search Functionality
     TaskAdapter mSearchAdapter;
@@ -58,6 +63,7 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
 
     private ActivitysPresenter mPresenter;
     String mUserName, mUserPhone;
+    String mDescriptionDeveloper;
     boolean mSelectAll;
 
     public ActivitysFragment() {
@@ -313,6 +319,72 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
         }
     }
 
+    private void showDialogFilters() {
+        mDescriptionDeveloper = null;
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        View viewAdd = getActivity().getLayoutInflater().inflate(R.layout.filter_activitys, null);
+        alertDialog.setView(viewAdd);
+
+        alertDialog.setTitle("Filtrar x Informatico");
+        alertDialog.setView(viewAdd);
+        alertDialog.setIcon(R.drawable.ic_add);
+
+        final MaterialSpinner developersSpinner = (MaterialSpinner)viewAdd.findViewById(R.id.developers_spinner);
+
+        developersSpinner.setItems(getListDeveloper());
+        developersSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                mDescriptionDeveloper = item;
+            }
+        });
+
+
+        alertDialog.setPositiveButton("Aplicar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Developer developer = searchDeveloperByName(mDescriptionDeveloper);
+                String phone = developer.getMovil();
+
+                mPresenter.onResume(phone, false);
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    // Lista developers
+    private List<String> getListDeveloper() {
+        List<String> stringList = new ArrayList<>();
+        stringList.add("INFORMATICO");
+        for (Developer developer : mDevelopersList) {
+            stringList.add(developer.getName());
+        }
+
+        return stringList;
+    }
+
+    // Search developer
+    private Developer searchDeveloperByName(String name) {
+        Developer developer = null;
+        for (Developer developer1 : mDevelopersList) {
+            if (developer1.getName().equals(name)) {
+                developer = developer1;
+                break;
+            }
+        }
+        return developer;
+    }
+
+
 
     @Override
     public void onResume() {
@@ -335,8 +407,11 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
 
         switch (item.getItemId()){
             case R.id.item_select_all:
+                showDialogFilters();
+/*
                 mSelectAll = true;
                 mPresenter.onResume(mUserPhone, mSelectAll);
+*/
         }
 
         return super.onOptionsItemSelected(item);
@@ -362,6 +437,15 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
 
         loadSuggest();
         configAdapter(datas);
+    }
+
+    @Override
+    public void requestDeveloper(List<Developer> developersDatas) {
+        mDevelopersList = new ArrayList<>();
+
+        for (Developer developer : developersDatas) {
+            mDevelopersList.add(developer);
+        }
     }
 
     @Override

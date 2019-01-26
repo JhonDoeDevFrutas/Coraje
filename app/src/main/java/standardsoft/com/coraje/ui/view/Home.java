@@ -19,8 +19,10 @@ import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.data.preferences.SessionPrefs;
 import standardsoft.com.coraje.ui.view.detailActivityModule.view.ActivitysFragment;
+import standardsoft.com.coraje.ui.view.detailBugsFragmentModule.view.DetailBugsFragment;
 import standardsoft.com.coraje.ui.view.detailPlanningModule.view.PlanningFragment;
 import standardsoft.com.coraje.ui.view.detailRemarkFragmentModule.view.DetailRemarkFragment;
+import standardsoft.com.coraje.ui.view.detailTaskFragmentModule.view.DetailTaskFragment;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -130,11 +132,20 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_activitys) {
             ActivitysFragment activitysFragment = new ActivitysFragment();
             activitysFragment.setArguments(arguments);
+
             manager.beginTransaction().replace(R.id.content_frame, activitysFragment).commit();
         } else if (id == R.id.nav_activity_register) {
             manager.beginTransaction().replace(R.id.content_frame, new DetailRemarkFragment()).commit();
-        } else if (id == R.id.nav_bugs) {
+        } else if (id == R.id.nav_task) {
+            DetailTaskFragment detailTaskFragment = new DetailTaskFragment();
+            detailTaskFragment.setArguments(arguments);
 
+            manager.beginTransaction().replace(R.id.content_frame, detailTaskFragment).commit();
+        } else if (id == R.id.nav_bugs) {
+            DetailBugsFragment detailBugsFragment = new DetailBugsFragment();
+            detailBugsFragment.setArguments(arguments);
+
+            manager.beginTransaction().replace(R.id.content_frame, detailBugsFragment).commit();
         } else if (id == R.id.nav_planning) {
             manager.beginTransaction().replace(R.id.content_frame, new PlanningFragment()).commit();
         } else if (id == R.id.nav_developer) {

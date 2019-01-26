@@ -40,6 +40,7 @@ public class ActivitysPresenterClass implements ActivitysPresenter {
         if (mView != null){
             mView.showProgress();
             mInteractor.subscribeToSubPlanningList(phone, selectAll);
+            mInteractor.subscribeToDeveloperList();
         }
     }
 
@@ -52,6 +53,9 @@ public class ActivitysPresenterClass implements ActivitysPresenter {
             switch (event.getTypeEvent()){
                 case ActivitysEvent.SUBPLANNING_ADDED:
                     mView.resultSubPlanning(event.getSubPlannings());
+                    break;
+                case ActivitysEvent.RESULT_DEVELOPER:
+                    mView.requestDeveloper(event.getDevelopers());
                     break;
                 case ActivitysEvent.ERROR_SERVER:
                     mView.showError(event.getResMsg());

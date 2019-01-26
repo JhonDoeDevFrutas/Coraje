@@ -8,4 +8,6 @@ public class FirebaseReferences {
     final public static String SUBPLANNING_REFERENCE = "subPlannings";
     public static final String REMARK_REFERENCE= "remark";
     public static final String USER_REFERENCE= "users";
+    public static final String BUGS_REFERENCE= "bugs";
+    public static final String PROMPT_TASK_REFERENCE= "prompt_tasks";
 }

@@ -46,7 +46,15 @@
             android:label="@string/title_activity_detail_task"
             android:theme="@style/AppTheme" />
         <activity android:name=".ui.view.SignInModule.view.SignInActivity" />
-        <activity android:name=".ui.view.SignUp.view.SignUpActivity"></activity>
+        <activity android:name=".ui.view.SignUp.view.SignUpActivity" />
+        <activity
+            android:name=".ui.view.bugsModule.view.BugsActivity"
+            android:label="@string/title_activity_bugs"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.view.promptTaskModule.view.PromptTaskActivity"
+            android:label="@string/title_activity_prompt_task"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

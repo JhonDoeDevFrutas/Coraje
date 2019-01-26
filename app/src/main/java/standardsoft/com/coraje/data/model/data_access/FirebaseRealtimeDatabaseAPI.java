@@ -50,6 +50,14 @@ public class FirebaseRealtimeDatabaseAPI {
         return getReference().child(FirebaseReferences.PLANNING_REFERENCE);
     }
 
+    public DatabaseReference getBugsReference(){
+        return getReference().child(FirebaseReferences.BUGS_REFERENCE);
+    }
+
+    public DatabaseReference getPromptTaskReference(){
+        return getReference().child(FirebaseReferences.PROMPT_TASK_REFERENCE);
+    }
+
     public DatabaseReference getPlanningReference(String uid){
         return getReference().child(FirebaseReferences.PLANNING_REFERENCE).child(uid);
     }
@@ -79,10 +87,6 @@ public class FirebaseRealtimeDatabaseAPI {
 
     public DatabaseReference getSupportReference(){
         return getSupportReference().child(PATH_SUPPORT);
-    }
-
-    public DatabaseReference getBugsReference(){
-        return getBugsReference().child(PATH_BUGS);
     }
 
 

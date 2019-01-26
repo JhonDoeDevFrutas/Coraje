@@ -38,7 +38,7 @@ public class Task { // Definicion de la clase padre
         this.task = task;
     }
 
-    // Constructor 8 argumentos
+    // Constructor 9 argumentos
     public Task(String description, Status status, Priority priority, Customer customer,
                 Module module, String task, Project project, Developer assignee, long date) {
         this.description = description;

@@ -34,8 +34,6 @@ public class RealtimeDatabase {
     /*
      *   public methods
      * */
-
-
     public void subscribeToRemarkList(String idSubPlanning, final DetailEventListener listener) {
         mDatabaseAPI.getRemarkReference().child(idSubPlanning).addValueEventListener(new ValueEventListener() {
             @Override

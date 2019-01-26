@@ -35,4 +35,7 @@
     <string name="error_phone_number_register">Phone number already register</string>
     <string name="action_sign_off">Cerrar Sesión</string>
     <string name="select_all">Todas las Tareas</string>
+    <string name="title_activity_bugs">BugsActivity</string>
+    <string name="prompt_solution">Solución</string>
+    <string name="title_activity_prompt_task">PromptTaskActivity</string>
 </resources>
