@@ -4,6 +4,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import standardsoft.com.coraje.data.model.entities.Bugs;
+import standardsoft.com.coraje.data.model.entities.PromptTask;
 import standardsoft.com.coraje.data.model.entities.Remark;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
 import standardsoft.com.coraje.ui.view.detailRemarkFragmentModule.events.RemarkEvent;
@@ -30,6 +32,18 @@ public class RemarkInteractorClass implements RemarkInteractor {
             public void onDataSubPlanning(List<SubPlanning> subPlanningList) {
                 postSub(RemarkEvent.RESULT_SUBPLANNING, subPlanningList);
                 subscribeToRemarkList();
+                subscribeToBugsList();
+                subscribeToPromptList();
+            }
+
+            @Override
+            public void onDataBugs(List<Bugs> bugsList) {
+
+            }
+
+            @Override
+            public void onDataPrompt(List<PromptTask> promptTaskList) {
+
             }
 
             @Override
@@ -37,6 +51,66 @@ public class RemarkInteractorClass implements RemarkInteractor {
 
             }
         });
+    }
+
+    @Override
+    public void subscribeToBugsList() {
+        mDatabase.subscribeToBugsList(new DetailRemarkEventListener() {
+            @Override
+            public void onDataChange(List<Remark> remarkList) {
+
+            }
+
+            @Override
+            public void onDataSubPlanning(List<SubPlanning> subPlanningList) {
+
+            }
+
+            @Override
+            public void onDataBugs(List<Bugs> bugsList) {
+                postBugs(RemarkEvent.RESULT_BUGS, bugsList);
+            }
+
+            @Override
+            public void onDataPrompt(List<PromptTask> promptTaskList) {
+
+            }
+
+            @Override
+            public void onError(int resMsg) {
+
+            }
+        });
+    }
+
+    @Override
+    public void subscribeToPromptList() {
+        mDatabase.subscribeToPromptList(new DetailRemarkEventListener() {
+            @Override
+            public void onDataChange(List<Remark> remarkList) {
+
+            }
+
+            @Override
+            public void onDataSubPlanning(List<SubPlanning> subPlanningList) {
+
+            }
+
+            @Override
+            public void onDataBugs(List<Bugs> bugsList) {
+            }
+
+            @Override
+            public void onDataPrompt(List<PromptTask> promptTaskList) {
+                postPrompt(RemarkEvent.RESULT_PROMPT, promptTaskList);
+            }
+
+            @Override
+            public void onError(int resMsg) {
+
+            }
+        });
+
     }
 
     @Override
@@ -53,13 +127,45 @@ public class RemarkInteractorClass implements RemarkInteractor {
             }
 
             @Override
+            public void onDataBugs(List<Bugs> bugsList) {
+
+            }
+
+            @Override
+            public void onDataPrompt(List<PromptTask> promptTaskList) {
+
+            }
+
+            @Override
             public void onError(int resMsg) {
 
             }
         });
     }
 
+    private void postBugs(int typeEvent, List<Bugs> bugsList){
+        postBugs(typeEvent, bugsList, 0);
+    }
 
+    private void postPrompt(int typeEvent, List<PromptTask> promptTaskList){
+        postPrompt(typeEvent, promptTaskList, 0);
+    }
+
+    private void postBugs(int typeEvent, List<Bugs> bugsList, int resMsg) {
+        RemarkEvent event = new RemarkEvent();
+        event.setTypeEvent(typeEvent);
+        event.setBugsList(bugsList);
+        event.setResMsg(resMsg);
+        EventBus.getDefault().post(event);
+    }
+
+    private void postPrompt(int typeEvent, List<PromptTask> promptTaskList, int resMsg) {
+        RemarkEvent event = new RemarkEvent();
+        event.setTypeEvent(typeEvent);
+        event.setPromptTaskList(promptTaskList);
+        event.setResMsg(resMsg);
+        EventBus.getDefault().post(event);
+    }
 
     private void post(int typeEvent, List<Remark> subPlannings){
         post(typeEvent, subPlannings, 0);

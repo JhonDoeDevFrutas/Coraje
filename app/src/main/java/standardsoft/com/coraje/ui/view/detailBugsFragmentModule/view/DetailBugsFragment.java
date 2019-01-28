@@ -32,7 +32,6 @@ import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.ui.view.bugsModule.view.BugsActivity;
 import standardsoft.com.coraje.ui.view.detailBugsFragmentModule.BugsPresenterClass;
 import standardsoft.com.coraje.ui.view.detailBugsFragmentModule.view.adapter.RequestAdapter;
-import standardsoft.com.coraje.ui.view.planningModule.view.PlanningActivity;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -57,6 +57,12 @@ public class DetailRemarkPresenterClass implements DetailRemarkPresenter {
                 case RemarkEvent.RESULT_SUBPLANNING:
                     mView.resultSubPlanning(event.getSubPlannings());
                     break;
+                case RemarkEvent.RESULT_BUGS:
+                    mView.resultBugs(event.getBugsList());
+                    break;
+                case RemarkEvent.RESULT_PROMPT:
+                    mView.resultPrompt(event.getPromptTaskList());
+                    break;
                 case RemarkEvent.ERROR_SERVER:
                     mView.showError(event.getResMsg());
                     break;

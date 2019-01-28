@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,8 +24,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import standardsoft.com.coraje.R;
+import standardsoft.com.coraje.data.model.entities.Bugs;
+import standardsoft.com.coraje.data.model.entities.PromptTask;
 import standardsoft.com.coraje.data.model.entities.Remark;
 import standardsoft.com.coraje.data.model.entities.SubPlanning;
 import standardsoft.com.coraje.ui.view.detailRemarkFragmentModule.DetailRemarkPresenter;
@@ -46,6 +51,8 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
 
     //a list to store all the remark from firebase database
     List<Remark> remarkList;
+    List<Bugs> bugsList;
+    List<PromptTask> promptList;
     HashMap<String, SubPlanning> subPlanningHashMap;
 
     public DetailRemarkFragment() {
@@ -80,7 +87,7 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
 
     /*    retornar lista de comentarios agrupada por fecha creacion.*/
     private void getDataSource(){
-        LinkedHashMap<String, List<Remark>> listHashMap = new LinkedHashMap<>();
+        LinkedHashMap<String, List<Object>> listHashMap = new LinkedHashMap<>();
 
         for (Remark remark : remarkList) {
             SubPlanning subPlanningTmp = getSubPlanning(remark.getIdSubPlanning());
@@ -89,28 +96,59 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
             String dateString = DateFormat.format("dd/MM/yyyy", new Date(remark.getDate())).toString();
             //String dateString = DateFormat.format("MM/dd/yyyy", new Date(remark.getDate())).toString();
             if (!listHashMap.containsKey(dateString))
-                listHashMap.put(dateString, new LinkedList<Remark>());
+                listHashMap.put(dateString, new LinkedList<Object>());
 
             listHashMap.get(dateString).add(remark);
         }
 
+        for (Bugs bugs : bugsList) {
+            String dateString = DateFormat.format("dd/MM/yyyy", new Date(bugs.getDate())).toString();
+
+            if (!listHashMap.containsKey(dateString))
+                listHashMap.put(dateString, new LinkedList<Object>());
+
+            listHashMap.get(dateString).add(bugs);
+        }
+
+        for (PromptTask promptTask : promptList) {
+            String dateString = DateFormat.format("dd/MM/yyyy", new Date(promptTask.getDate())).toString();
+
+            if (!listHashMap.containsKey(dateString))
+                listHashMap.put(dateString, new LinkedList<Object>());
+
+            listHashMap.get(dateString).add(promptTask);
+        }
+
+        Map<String, List<Object>> order = new TreeMap<String, List<Object>>(listHashMap);
+        Map<String, List<Object>> order2 = new TreeMap<String, List<Object>>(Collections.reverseOrder());
+        order2.putAll(order);
+
         ArrayList<Object> datas = new ArrayList<>();
 
         // Get a set of the entries
-        Set<Map.Entry<String, List<Remark>>> setMap = listHashMap.entrySet();
+        Set<Map.Entry<String, List<Object>>> setMap = order2.entrySet();
         // Get an iterator
-        Iterator<Map.Entry<String, List<Remark>>> iteratorMap = setMap.iterator();
+        Iterator<Map.Entry<String, List<Object>>> iteratorMap = setMap.iterator();
         // display all the elements
         while (iteratorMap.hasNext()){
-            Map.Entry<String, List<Remark>> entry = (Map.Entry<String, List<Remark>>) iteratorMap.next();
+            Map.Entry<String, List<Object>> entry = (Map.Entry<String, List<Object>>) iteratorMap.next();
 
             String key = entry.getKey();
             datas.add(key);
 
-            List<Remark> values = entry.getValue();
+            List<Object> values = entry.getValue();
             for (int i = 0; i < values.size(); i++){
-                Remark remark = values.get(i);
-                datas.add(remark);
+                Object obj = values.get(i);
+                if(obj instanceof Remark){
+                    Remark remark = (Remark) obj;
+                    datas.add(remark);
+                }if(obj instanceof Bugs){
+                    Bugs bug = (Bugs) obj;
+                    datas.add(bug);
+                }else if (obj instanceof PromptTask){
+                    PromptTask task = (PromptTask)obj;
+                    datas.add(task);
+                }
             }
         }
 
@@ -148,7 +186,7 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
         remarkList = new ArrayList<>();
 
         remarkList = datas;
-        getDataSource();
+        //getDataSource();
     }
 
     @Override
@@ -160,6 +198,23 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
                 subPlanningHashMap.put(subPlanning.getId(), subPlanning);
             }
         }
+    }
+
+    @Override
+    public void resultBugs(List<Bugs> datas) {
+        //clear all list
+        bugsList = new ArrayList<>();
+
+        bugsList = datas;
+    }
+
+    @Override
+    public void resultPrompt(List<PromptTask> datas) {
+        //clear all list
+        promptList = new ArrayList<>();
+
+        promptList = datas;
+        getDataSource();
     }
 
 
