@@ -6,6 +6,8 @@ import standardsoft.com.coraje.data.model.entities.Remark;
 
 public interface DetailTaskView {
     void clearUIElements();
+    void enableUIElements();
+    void disableUIElements();
     void showProgress();
     void hideProgress();
 

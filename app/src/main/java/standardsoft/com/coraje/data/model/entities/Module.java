@@ -1,9 +1,9 @@
 package standardsoft.com.coraje.data.model.entities;
 
 public enum Module {
-    historia("HISTORIA CLINICA"), admision("ADMISIONES"), agenda("AGENDA MEDICA"), reporte("REPORTES"),
-    parametrizacion("PARAMETRIZACION"), app("APP MOVIL"), factura("FACTURACIÓN"),
-    laboratorio("LABORATORIO"), seguridad("SEGURIDAD");
+    admision("ADMISIONES"), agenda("AGENDA MEDICA"), app("APP MOVIL"), factura("FACTURACIÓN"),
+    historia("HISTORIA CLINICA"), laboratorio("LABORATORIO"), parametrizacion("PARAMETRIZACION"),
+    reporte("REPORTES"), seguridad("SEGURIDAD"), honorario("HONORARIO");
 
     private String description;
 
@@ -31,6 +31,8 @@ public enum Module {
                 return laboratorio;
             case "SEGURIDAD":
                 return seguridad;
+            case "HONORARIO":
+                return honorario;
             default:
                 return null;
         }

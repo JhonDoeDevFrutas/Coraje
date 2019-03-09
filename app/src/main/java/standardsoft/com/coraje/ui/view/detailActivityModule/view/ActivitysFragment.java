@@ -81,13 +81,6 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
         mUserName   = arguments.getString(User.NAME);// Recuperamos información
         mUserPhone  = arguments.getString(User.PHONE);
 
-/*
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        // Firebase Init
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        //getting the reference of node
-        mDbReference = database.getReference(FirebaseReferences.SUBPLANNING_REFERENCE);
-*/
         mPresenter.onCreate();
 
         // Checks if the device has any active internet connection.
@@ -265,52 +258,6 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
         Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
     }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        //attaching value event listener
-        mDbReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //clearing the previous subplanning list
-                subPlanningList.clear();
-                //iterating through all the nodes
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot snapshot : postSnapshot.getChildren()) {
-                        // getting subplanning
-                        SubPlanning subPlanning = snapshot.getValue(SubPlanning.class);
-                        //adding subplanning to the list
-                        subPlanningList.add(subPlanning);
-                    }
-                }
-
-                //adapter
-                mAdapter = new TaskAdapter(getActivity(), subPlanningList);
-                mAdapter.notifyDataSetChanged();
-                mAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(SubPlanning clickedPlanning) {
-
-                    }
-                });
-
-                mAdapter.setOnItemLongClickListener(new TaskAdapter.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(SubPlanning longClickedSubPlanning) {
-                        return false;
-                    }
-                });
-
-                mReciclador.setAdapter(mAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-*/
     private void loadSuggest() {
         for (int i = 0; i < subPlanningList.size(); i++){
             SubPlanning subPlanning = subPlanningList.get(i);
@@ -345,9 +292,9 @@ public class ActivitysFragment extends Fragment implements ActivitysView{
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Developer developer = searchDeveloperByName(mDescriptionDeveloper);
-                String phone = developer.getMovil();
+                mUserPhone = developer.getMovil();
 
-                mPresenter.onResume(phone, false);
+                mPresenter.onResume(mUserPhone, false);
             }
         });
 

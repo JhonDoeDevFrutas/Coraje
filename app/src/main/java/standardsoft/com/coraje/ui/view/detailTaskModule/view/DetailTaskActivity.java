@@ -35,6 +35,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
     private CoordinatorLayout contentMain;
     private ListView listRemark;
     ProgressBar progressBar;
+    private FloatingActionButton fabRemark;
 
     private MenuItem itemToHide;
 
@@ -100,7 +101,7 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
     }
 
     private void prepararFab() {
-        FloatingActionButton fabRemark = (FloatingActionButton) findViewById(R.id.fab_remark);
+        fabRemark = (FloatingActionButton) findViewById(R.id.fab_remark);
         fabRemark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,6 +173,16 @@ public class DetailTaskActivity extends AppCompatActivity implements DetailTaskV
     @Override
     public void clearUIElements() {
         edtRemark.setText("");
+    }
+
+    @Override
+    public void enableUIElements() {
+        fabRemark.setEnabled(true);
+    }
+
+    @Override
+    public void disableUIElements() {
+        fabRemark.setEnabled(false);
     }
 
     @Override

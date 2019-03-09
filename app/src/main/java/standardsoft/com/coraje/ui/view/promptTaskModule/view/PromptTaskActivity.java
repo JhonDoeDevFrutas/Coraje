@@ -186,7 +186,7 @@ public class PromptTaskActivity extends AppCompatActivity implements PromptView{
         for (Module module : Module.values()) {
             moduleList.add(module.getDescription());
         }
-        Collections.sort(moduleList);//order by description
+        //Collections.sort(moduleList);//order by description
 
         modulesSpinner.setItems(moduleList);
         modulesSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -208,7 +208,7 @@ public class PromptTaskActivity extends AppCompatActivity implements PromptView{
         for (Priority priority : Priority.values()) {
             priorityList.add(priority.getDescription());
         }
-        Collections.sort(priorityList);//order by description
+        //Collections.sort(priorityList);//order by description
 
         prioritysSpinner.setItems(priorityList);
         prioritysSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {

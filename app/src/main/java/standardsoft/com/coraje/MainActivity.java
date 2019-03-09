@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import standardsoft.com.coraje.data.preferences.SessionPrefs;
+import standardsoft.com.coraje.ui.view.GraficaBarrasActivity;
 import standardsoft.com.coraje.ui.view.Home;
 import standardsoft.com.coraje.ui.view.SignInModule.view.SignInActivity;
 import standardsoft.com.coraje.ui.view.SignUp.view.SignUpActivity;

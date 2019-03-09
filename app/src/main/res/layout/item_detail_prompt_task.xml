@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     android:padding="8dp"
     android:background="@color/colorRed100">
 
@@ -45,8 +45,8 @@
         android:id="@+id/item_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/item_task"
         android:layout_below="@+id/item_task"
+        android:layout_alignLeft="@id/item_task"
         android:layout_marginTop="5dp"
         android:text="Comentario"
         android:textColor="@color/colorBlack"/>

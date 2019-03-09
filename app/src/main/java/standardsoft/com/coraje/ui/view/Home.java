@@ -18,6 +18,7 @@ import standardsoft.com.coraje.MainActivity;
 import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.data.preferences.SessionPrefs;
+import standardsoft.com.coraje.ui.view.barGraphModule.view.BarGraphFragment;
 import standardsoft.com.coraje.ui.view.detailActivityModule.view.ActivitysFragment;
 import standardsoft.com.coraje.ui.view.detailBugsFragmentModule.view.DetailBugsFragment;
 import standardsoft.com.coraje.ui.view.detailPlanningModule.view.PlanningFragment;
@@ -154,6 +155,8 @@ public class Home extends AppCompatActivity
             manager.beginTransaction().replace(R.id.content_frame, new DetailCustomerFragment()).commit();
         }else if (id == R.id.nav_project) {
             manager.beginTransaction().replace(R.id.content_frame, new DetailProjectsFragment()).commit();
+        }else if (id == R.id.nav_graph) {
+            manager.beginTransaction().replace(R.id.content_frame, new BarGraphFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

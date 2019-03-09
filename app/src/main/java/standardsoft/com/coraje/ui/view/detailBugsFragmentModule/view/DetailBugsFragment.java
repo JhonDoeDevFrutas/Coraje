@@ -82,6 +82,7 @@ public class DetailBugsFragment extends Fragment implements DetailBugsView{
 
         // Preparar elementos UI
         prepararUI();
+        configAdapter(new ArrayList<Bugs>(0));
         prepararFab();
         prepararToolbar();
         return view;
@@ -114,7 +115,6 @@ public class DetailBugsFragment extends Fragment implements DetailBugsView{
     private void configAdapter(List<Bugs> bugsList) {
         mAdapter = new RequestAdapter(getActivity(), bugsList);
         mAdapter.notifyDataSetChanged();
-
         mAdapter.setOnItemClickListener(new RequestAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Bugs clickedBugs) {
@@ -259,9 +259,9 @@ public class DetailBugsFragment extends Fragment implements DetailBugsView{
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Developer developer = searchDeveloperByName(mDescriptionDeveloper);
-                String phone = developer.getMovil();
+                mUserPhone = developer.getMovil();
 
-                mPresenter.onResume(phone, false);
+                mPresenter.onResume(mUserPhone, false);
             }
         });
 

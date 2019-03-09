@@ -85,6 +85,7 @@ public class DetailTaskFragment extends Fragment implements DetailPromptTaskView
 
         // Preparar elementos UI
         prepararUI();
+        configAdapter(new ArrayList<PromptTask>(0));
         prepararFab();
         prepararToolbar();
 
@@ -262,9 +263,9 @@ public class DetailTaskFragment extends Fragment implements DetailPromptTaskView
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Developer developer = searchDeveloperByName(mDescriptionDeveloper);
-                String phone = developer.getMovil();
+                mUserPhone = developer.getMovil();
 
-                mPresenter.onResume(phone, false);
+                mPresenter.onResume(mUserPhone, false);
             }
         });
 

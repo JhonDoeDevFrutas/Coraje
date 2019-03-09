@@ -1,7 +1,7 @@
 package standardsoft.com.coraje.data.model.entities;
 
 public enum Status {
-    esperando("ESPERANDO REVISION"), proceso("EN PROCESO"), listo("LISTO");
+    proceso("EN PROCESO"), esperando("ESPERANDO REVISION"), listo("LISTO");
 
     private String description;
 

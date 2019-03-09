@@ -54,7 +54,8 @@
         <activity
             android:name=".ui.view.promptTaskModule.view.PromptTaskActivity"
             android:label="@string/title_activity_prompt_task"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.view.GraficaBarrasActivity"></activity>
     </application>
 
 </manifest>

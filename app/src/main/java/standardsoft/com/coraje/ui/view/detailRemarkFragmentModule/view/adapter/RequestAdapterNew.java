@@ -172,7 +172,7 @@ public class RequestAdapterNew extends BaseAdapter {
                         break;
                 }
 
-                txtUser.setText(promptTask.getAssignee().getName());
+                txtUser.setText(promptTask.getAssignee() != null ? promptTask.getAssignee().getName() : "");
                 txtTime.setText(new SimpleDateFormat("hh:mm a", Locale.ROOT).format(date));
                 txtTask.setText(promptTask.getTask());
                 txtStatus.setText(promptTask.getStatus().getDescription());

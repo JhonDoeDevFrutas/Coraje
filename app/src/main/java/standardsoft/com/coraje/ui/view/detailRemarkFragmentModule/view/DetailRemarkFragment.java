@@ -56,7 +56,6 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
     HashMap<String, SubPlanning> subPlanningHashMap;
 
     public DetailRemarkFragment() {
-        // Required empty public constructor
         mPresenter = new DetailRemarkPresenterClass(this);
     }
 
@@ -71,6 +70,11 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
         prepararToolbar();
         // Preparar elementos UI
         prepararUI();
+        //clear all list
+        remarkList = new ArrayList<>();
+        bugsList = new ArrayList<>();
+        promptList = new ArrayList<>();
+        getDataSource();
 
         return view;
     }
@@ -119,14 +123,16 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
             listHashMap.get(dateString).add(promptTask);
         }
 
+/*
         Map<String, List<Object>> order = new TreeMap<String, List<Object>>(listHashMap);
         Map<String, List<Object>> order2 = new TreeMap<String, List<Object>>(Collections.reverseOrder());
         order2.putAll(order);
+*/
 
         ArrayList<Object> datas = new ArrayList<>();
 
         // Get a set of the entries
-        Set<Map.Entry<String, List<Object>>> setMap = order2.entrySet();
+        Set<Map.Entry<String, List<Object>>> setMap = listHashMap.entrySet();
         // Get an iterator
         Iterator<Map.Entry<String, List<Object>>> iteratorMap = setMap.iterator();
         // display all the elements
@@ -152,9 +158,11 @@ public class DetailRemarkFragment extends Fragment implements RemarkView{
             }
         }
 
-        mAdapter = new RequestAdapterNew(getActivity(), datas);
-        mAdapter.notifyDataSetChanged();
-        mListView.setAdapter(mAdapter);
+        if (getActivity() != null){
+            mAdapter = new RequestAdapterNew(getActivity(), datas);
+            mAdapter.notifyDataSetChanged();
+            mListView.setAdapter(mAdapter);
+        }
     }
 
     private SubPlanning getSubPlanning(String id){

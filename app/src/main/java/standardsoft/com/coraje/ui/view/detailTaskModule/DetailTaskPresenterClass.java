@@ -45,6 +45,7 @@ public class DetailTaskPresenterClass implements DetailTaskPresenter {
     @Override
     public void addRemarkTask(String idPlanning, String idSubPlanning, Remark remark) {
         if (mView != null) {
+            mView.disableUIElements();
             mView.showProgress();
 
             mInteractor.addRemarkTask(idPlanning, idSubPlanning, remark);
@@ -56,6 +57,7 @@ public class DetailTaskPresenterClass implements DetailTaskPresenter {
     public void onEventListener(DetailTaskEvent event) {
         if (mView != null) {
             mView.hideProgress();
+            mView.enableUIElements();
 
             switch (event.getTypeEvent()) {
                 case DetailTaskEvent.REMARK_ADDED:
