@@ -14,6 +14,7 @@ public interface SubPlanningView {
     void requestSubPlanning(List<SubPlanning> subPlanningsDatas);
 
     void addSubPlanning();
+    void removeSubPlanning();
     void updateSubPlanning();
 
     void onShowError(int resMsg);

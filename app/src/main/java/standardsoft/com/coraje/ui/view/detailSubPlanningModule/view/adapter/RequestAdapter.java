@@ -3,9 +3,12 @@ package standardsoft.com.coraje.ui.view.detailSubPlanningModule.view.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,6 +23,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
     // Instancia de escucha
     private OnItemClickListener mOnItemClickListener;
+    private OnItemSelectedListener mOnItemSelectedListener;
     private OnItemLongClickListener mOnItemLongClickListener;
 
     public RequestAdapter(Context context, List<SubPlanning> items) {
@@ -35,6 +39,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         boolean onItemLongClick(SubPlanning longClickedSubPlanning);
     }
 
+    public interface  OnItemSelectedListener{
+        void onMenuAction(SubPlanning selectPlanning, MenuItem item);
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         mOnItemClickListener = onItemClickListener;
     }
@@ -43,7 +51,13 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         mOnItemLongClickListener = onItemLongSelected;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
+    public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener){
+        mOnItemSelectedListener = onItemSelectedListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,
+            View.OnLongClickListener, PopupMenu.OnMenuItemClickListener, View.OnClickListener  {
+
         public TextView txtTask,txt1;
         public View priorityStatus;
 
@@ -54,17 +68,28 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             txtTask  = (TextView) itemView.findViewById(R.id.text_task);
             txt1  = (TextView) itemView.findViewById(R.id.text_1);
 
+            itemView.setOnCreateContextMenuListener(this);
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+        }
+
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+            PopupMenu popup = new PopupMenu(view.getContext(), view);
+            popup.getMenuInflater().inflate(R.menu.custom_menu, popup.getMenu());
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
         }
 
         @Override
-        public void onClick(View v) {
+        public boolean onMenuItemClick(MenuItem menuItem) {
             int position = getAdapterPosition();
 
             if (position != RecyclerView.NO_POSITION){
-                mOnItemClickListener.onItemClick(mItems.get(position));
+                mOnItemSelectedListener.onMenuAction(mItems.get(position), menuItem);
             }
+
+            return false;
         }
 
         @Override
@@ -77,12 +102,19 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             }
             return false;
         }
-    }
 
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION){
+                mOnItemClickListener.onItemClick(mItems.get(position));
+            }
+        }
+    }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         View view = layoutInflater.inflate(R.layout.item_sub_planning, viewGroup, false);
         return new ViewHolder(view);

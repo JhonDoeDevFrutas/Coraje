@@ -10,7 +10,9 @@ public class SubPlanningEvent {
     public static final int SUBPLANNING_ADDED       = 0;
     public static final int RESULT_DEVELOPER        = 1;
     public static final int RESULT_SUB_PLANNING     = 2;
+    public static final  int SUCCESS_REMOVE         = 3;
     public static final int ERROR_SERVER            = 100;
+    public static final  int ERROR_TO_REMOVE = 101;
 
     private Planning planning;
     private List<SubPlanning> subPlannings;

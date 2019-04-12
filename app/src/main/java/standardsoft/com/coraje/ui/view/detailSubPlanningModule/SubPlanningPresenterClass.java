@@ -53,6 +53,15 @@ public class SubPlanningPresenterClass implements SubPlanningPresenter {
         }
     }
 
+    @Override
+    public void removeSubPlanning(String idPlanning, SubPlanning subPlanning) {
+        if (mView != null){
+            mView.showProgress();
+
+            mInteractor.removeSubPlanning(idPlanning, subPlanning);
+        }
+    }
+
     @Subscribe
     @Override
     public void onEventListener(SubPlanningEvent event) {
@@ -68,6 +77,8 @@ public class SubPlanningPresenterClass implements SubPlanningPresenter {
                     break;
                 case SubPlanningEvent.RESULT_SUB_PLANNING:
                     mView.requestSubPlanning(event.getSubPlannings());
+                    break;
+                case SubPlanningEvent.ERROR_TO_REMOVE:
                     break;
                 case SubPlanningEvent.ERROR_SERVER:
                     mView.onShowError(event.getTypeEvent());

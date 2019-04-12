@@ -8,5 +8,6 @@ public interface SubPlanningInteractor {
     void subscribeToSubPlanningList(String idPlanning);
 
     void addSubPlanning(String idPlanning, SubPlanning subPlanning);
+    void removeSubPlanning(String idPlanning, SubPlanning subPlanning);
     void updateSubPlanning(SubPlanning subPlanning);
 }

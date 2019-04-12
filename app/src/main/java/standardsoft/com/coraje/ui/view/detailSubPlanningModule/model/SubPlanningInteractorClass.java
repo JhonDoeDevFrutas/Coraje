@@ -80,6 +80,26 @@ public class SubPlanningInteractorClass implements SubPlanningInteractor {
     }
 
     @Override
+    public void removeSubPlanning(String idPlanning, SubPlanning subPlanning) {
+        mDatabase.removeSubPlanning(idPlanning, subPlanning, new BasicErrorEventCallback() {
+            @Override
+            public void onSuccess() {
+                post(SubPlanningEvent.SUCCESS_REMOVE);
+            }
+
+            @Override
+            public void onError(int typeEvent, int resMsg) {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+
+    @Override
     public void updateSubPlanning(SubPlanning subPlanning) {
     }
 

@@ -11,6 +11,7 @@ public interface SubPlanningPresenter {
     void onDestroy();
 
     void addSubPlanning(String idPlanning, SubPlanning subPlanning);
+    void removeSubPlanning(String idPlanning, SubPlanning subPlanning);
 
     void onEventListener(SubPlanningEvent event);
 }

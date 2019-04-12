@@ -202,8 +202,32 @@ public class RealtimeDatabase {
         });*/
     }
 
+    public void removeSubPlanning(String idPlanning, SubPlanning subPlanning, final BasicErrorEventCallback callback){
+
+        mDatabaseAPI.getSubPlanningReference(idPlanning).child(subPlanning.getId())
+                .removeValue(new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if (databaseError == null){
+                            callback.onSuccess();
+                        } else {
+                            switch (databaseError.getCode()){
+                                case DatabaseError.PERMISSION_DENIED:
+                                    callback.onError(SubPlanningEvent.ERROR_TO_REMOVE, R.string.error_remove);
+                                    break;
+                                default:
+                                    callback.onError(SubPlanningEvent.ERROR_SERVER, R.string.error_server);
+                                    break;
+                            }
+                        }
+
+                    }
+                });
+    }
+
     private SubPlanning getSubPlanning(DataSnapshot dataSnapshot) {
         SubPlanning subPlanning = dataSnapshot.getValue(SubPlanning.class);
+        subPlanning.setId(dataSnapshot.getKey());
         return subPlanning;
     }
 

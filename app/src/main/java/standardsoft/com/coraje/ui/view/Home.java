@@ -148,7 +148,9 @@ public class Home extends AppCompatActivity
 
             manager.beginTransaction().replace(R.id.content_frame, detailBugsFragment).commit();
         } else if (id == R.id.nav_planning) {
-            manager.beginTransaction().replace(R.id.content_frame, new PlanningFragment()).commit();
+            PlanningFragment planningFragment = new PlanningFragment();
+            planningFragment.setArguments(arguments);
+            manager.beginTransaction().replace(R.id.content_frame, planningFragment).commit();
         } else if (id == R.id.nav_developer) {
             manager.beginTransaction().replace(R.id.content_frame, new DetailDeveloperFragment()).commit();
         } else if (id == R.id.nav_customer) {

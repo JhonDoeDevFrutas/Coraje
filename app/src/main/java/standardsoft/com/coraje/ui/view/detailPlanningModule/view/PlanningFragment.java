@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import standardsoft.com.coraje.R;
 import standardsoft.com.coraje.data.model.entities.Planning;
+import standardsoft.com.coraje.data.model.entities.User;
 import standardsoft.com.coraje.ui.view.detailPlanningModule.view.adapter.PlanningAdapter;
 import standardsoft.com.coraje.ui.view.detailPlanningModule.DetailPlanningPresenter;
 import standardsoft.com.coraje.ui.view.detailPlanningModule.DetailPlanningPresenterClass;
@@ -38,12 +42,17 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
     private PlanningAdapter mAdapter;
     ProgressBar progressBar;
 
+    // Search Functionality
+    PlanningAdapter mSearchAdapter;
+    List<String> suggesList = new ArrayList<>(); //list filter
+    MaterialSearchBar materialSearchBar;
+
     //a list to planning all the section from firebase database
     List<Planning> planningList;
-
-    DatabaseReference mDbReference;//our database reference object
+    List<Planning> searchPlanning;
 
     private DetailPlanningPresenter mPresenter;
+    String mUserName;
 
     public PlanningFragment() {
         // Required empty public constructor
@@ -56,13 +65,9 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_planning, container, false);
 
-/*
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        // Firebase Init
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        //getting the reference of node
-        mDbReference = database.getReference(FirebaseReferences.PLANNING_REFERENCE);
-*/
+        Bundle arguments = getArguments();
+        mUserName   = arguments.getString(User.NAME);// Recuperamos información
+
         mPresenter.onCreate();
 
         // Checks if the device has any active internet connection.
@@ -90,7 +95,99 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mAdapter    = new PlanningAdapter(getActivity(), new ArrayList<Planning>(0));
         mReciclador = (RecyclerView)view.findViewById(R.id.recycler_planning);
+
+        prepararSearchBar();
     }
+
+    private void prepararSearchBar() {
+        // Search
+        materialSearchBar = (MaterialSearchBar)view.findViewById(R.id.searchBar);
+        materialSearchBar.setHint("Buscar");
+        materialSearchBar.setLastSuggestions(suggesList);
+        materialSearchBar.setCardViewElevation(10);
+
+        materialSearchBar.addTextChangeListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //when user type their text, we will change suggest list
+                List<String>suggest = new ArrayList<String>();
+                for (String search : suggesList) {
+                    if (search.toLowerCase().contains(materialSearchBar.getText().toLowerCase()))
+                        suggest.add(search);
+                }
+                materialSearchBar.setLastSuggestions(suggest);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        materialSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+            @Override
+            public void onSearchStateChanged(boolean enabled) {
+                //when search bar is close
+                //restore original adapter
+                if (!enabled)
+                    mReciclador.setAdapter(mAdapter);
+
+            }
+
+            @Override
+            public void onSearchConfirmed(CharSequence text) {
+                // when search finish
+                //show result of search adapter
+                String find = text.toString().trim();
+                searchPlanning = new ArrayList<>();
+                for (Planning planning : planningList) {
+                    String task = planning.getTask().trim();
+                    if (task.equals(find)){
+                        searchPlanning.add(planning);
+                    }
+                }
+
+                startSearch();
+            }
+
+            @Override
+            public void onButtonClicked(int buttonCode) {
+
+            }
+        });
+    }
+
+    // start search component
+    private void startSearch() {
+        // when search finish
+        // show result of search adapter
+        // start search component
+        // Reset Adapter and recycler
+        mSearchAdapter = new PlanningAdapter(getActivity(), searchPlanning);
+        mSearchAdapter.notifyDataSetChanged();
+
+        mSearchAdapter.setOnItemClickListener(new PlanningAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Planning clickedPlanning) {
+                onPlanning(clickedPlanning, 0);
+            }
+        });
+        mSearchAdapter.setOnItemLongClickListener(new PlanningAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(Planning longClickedPlanning) {
+                onPlanning(longClickedPlanning,1);
+                return false;
+            }
+        });
+
+        mReciclador.setAdapter(mSearchAdapter);// set adapter for recycler view is search result
+    }
+
 
     private void configAdapter(List<Planning> planningList) {
         mAdapter = new PlanningAdapter(getActivity(), planningList);
@@ -113,7 +210,6 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
         mReciclador.setAdapter(mAdapter);
 
     }
-
 
     private void onShowNetWorkError(String error) {
         Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
@@ -187,6 +283,7 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
             intentPlanning = new Intent(getActivity(), PlanningActivity.class);
         }
 
+        intentPlanning.putExtra(User.NAME, mUserName);
         intentPlanning.putExtra(Planning.ID, planning.getId());
         intentPlanning.putExtra(Planning.DESCRIPTION, planning.getDescription());
         intentPlanning.putExtra(Planning.DATE, Long.toString(planning.getDate()));
@@ -217,6 +314,14 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
         startActivity(intentPlanning);
     }
 
+    private void loadSuggest(List<Planning> plannings) {
+        for (int i = 0; i < plannings.size(); i++){
+            Planning planning = plannings.get(i);
+            String task = planning.getTask().trim();
+            suggesList.add(task); // add name of task to suggest list
+        }
+    }
+
     /*DetailPlanningView*/
     @Override
     public void showProgress() {
@@ -230,6 +335,11 @@ public class PlanningFragment extends Fragment implements DetailPlanningView{
 
     @Override
     public void addDatas(List<Planning> datas) {
+        planningList = new ArrayList<>();
+        suggesList   = new ArrayList<>();
+        planningList = datas;
+
+        loadSuggest(datas);
         configAdapter(datas);
     }
 
